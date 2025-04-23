@@ -20,7 +20,7 @@
     session_start();
 
     // Connexion à la BDD
-    require "../data/database.php";
+    require "..app/data/database.php";
     $db = connexion(
         $config['db']['host'],
         $config['db']['dbname'],
