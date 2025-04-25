@@ -6,7 +6,11 @@
 
         
         <!-- div logo -->
+<<<<<<< HEAD
         <div class="logo-section text-center mb-3">
+=======
+        <div class="logo-section text-center">
+>>>>>>> 9455623 (mise en forme des liens pour qu'ils ressemblent à : chu/public/index.php?r=XXX avec XXX=le nom du controller associé controllers/XXX.php)
             <a href="index.php?r=home" class="nav-link">
                 <img src="images/ghi_chu_logo.png" alt="Logo" class="logo-img mx-auto">
             </a>
