@@ -32,14 +32,14 @@
         $config['db']['password']
     );
 
-// Redirection vers la page d'accueil
-    // header("Location: " . $base_url . "app/controllers/home.php");
-    // exit;
-
     // Appel de la page de route, celle qui gère toutes les redirections
     require("../app/routes.php");*/
 
     require_once("../app/routes.php");
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9455623 (mise en forme des liens pour qu'ils ressemblent à : chu/public/index.php?r=XXX avec XXX=le nom du controller associé controllers/XXX.php)
 ?>
