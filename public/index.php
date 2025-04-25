@@ -10,6 +10,9 @@
     // Chargement config
     /*$config = require '../app/config.php'; 
 
+    // chargement base_url
+    $base_url = $config['base_url'];
+
     // Démarrage des sessions
     session_name($config['session']['name']);  // définition du nom de cookie
     session_set_cookie_params([
@@ -21,13 +24,22 @@
 
     // Connexion à la BDD
     require "../app/data/database.php";
-   /* $db = connexion(
+
+    $db = connexion(
         $config['db']['host'],
         $config['db']['dbname'],
         $config['db']['user'],
         $config['db']['password']
     );
 
+// Redirection vers la page d'accueil
+    // header("Location: " . $base_url . "app/controllers/home.php");
+    // exit;
+
     // Appel de la page de route, celle qui gère toutes les redirections
     require("../app/routes.php");*/
+
+    require_once("../app/routes.php");
+
+
 ?>
