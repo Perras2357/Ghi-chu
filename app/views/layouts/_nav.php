@@ -5,7 +5,7 @@
         
         <!-- div logo -->
         <div class="logo-section text-center">
-            <a href="index.php?page=home" class="nav-link">
+            <a href="index.php?r=home" class="nav-link">
                 <img src="images/ghi_chu_logo.png" alt="Logo" class="logo-img mx-auto">
             </a>
         </div>

@@ -31,13 +31,8 @@
         $config['db']['password']
     );
 
-// Redirection vers la page d'accueil
-    // header("Location: " . $base_url . "app/controllers/home.php");
-    // exit;
-
     // Appel de la page de route, celle qui gère toutes les redirections
     require_once("../app/routes.php");
-
 
 
 
