@@ -1,16 +1,12 @@
-<?php 
-
-    function connexion($host, $dbname, $user, $mdp)
-    {
-        try {
-            $dbh = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $mdp);
-            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            return $dbh;
-        } catch (PDOException $e) {
-            error_log("Erreur connexion BDD : " . $e->getMessage());
-            die("Erreur de connexion à la base de données.");
-        }
-    } 
-    
+<?php
+try {
+    $dbh = new PDO("mysql:host=localhost;dbname=ghi-chu_database;port=3307",'root','');
+    //echo "YES";
+} catch (PDOException $e) {
+    // tenter de réessayer la connexion après un certain délai, par exemple
+    //echo "NO";
+    die('Erreur : ' . $e->getMessage());
+}
+/*var_dump($dbh);
+var_dump($e);*/
 ?>
