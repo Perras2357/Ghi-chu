@@ -23,7 +23,9 @@
 
             <!-- Colonne mes post-it   -->
             <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center">
-                        <div class="libelle">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-text libelle">
                             <p> My Post-Its</p>
                         </div>
                         <table class="table table-striped table-hover">
@@ -50,38 +52,46 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>    
 
 
 
                 <!-- Colonne post-it partagés   -->
-                        <p> Post-Its shared</p>
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Titre</th>
-                                    <th scope="col">Date-create</th>
-                                    <th scope="col">Edit</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <th scope="row">1</th>
-                                <td>Voyage</td>
-                                <td>11-04-2025</td>
-                                <td>23-03-2025</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">2</th>
-                                <td>Médicaments à acheter</td>
-                                <td>01-01-2024</td>
-                                <td>12-03-2025</td>
-                                </tr>
-                            </tbody>
-                        </table>
-            </div>
-
-
+                <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p class='libelle2'> Post-Its shared</p>
+                            </div>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Titre</th>
+                                        <th scope="col">Date-create</th>
+                                        <th scope="col">Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Voyage</td>
+                                        <td>11-04-2025</td>
+                                        <td>23-03-2025</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Médicaments à acheter</td>
+                                        <td>01-01-2024</td>
+                                        <td>12-03-2025</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
         </div>
 
     </div>
