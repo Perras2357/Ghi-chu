@@ -1,7 +1,7 @@
 <?php
 
     // Récupère la route dans l'URL (ex: login, home)
-    $route = $_GET['r'] ?? 'home'; // par défaut, "home"
+    $route = $_GET['r'] ?? 'inscription_controller'; // par défaut, "home"
 
     // Définit le chemin vers le fichier de route
     $controllerFile = "../app/controllers/$route.php";

@@ -1,31 +1,8 @@
 <?php
-include('../app/data/database.php');
-$message = '';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $prenom = $_POST['prenom'];
-    $nom = $_POST['nom'];
-    $naissance = $_POST['naissance'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-    $stmt = $dbh->prepare("INSERT INTO users (prenom, nom, date_naissance, mail, mot_de_passe) VALUES (?, ?, ?, ?, ?)");
-    if ($stmt->execute([$prenom, $nom, $naissance, $email, $password])) {
-        $message = "Inscription réussie !";
-    } else {
-        $message = "Erreur lors de l'inscription.";
-    }
-}
+    // require_once __DIR__.'/layouts/head.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/inscription.css">
     <div class="form-container">
         <div class="form-box">
             <img src="images/logo_fond_blanc.png" class="logo" alt="Logo Ghi Chu">
@@ -42,7 +19,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p>Already have an account? <a href="login.php">Sign in</a></p>
             </form>
         </div>
-        <div class="image-part"></div>
+        <div class="image-part">
+            <img src="images/postit.jpg" alt="Inscription Image">
+        </div>
     </div>
-</body>
-</html>
+
+
+
+
+
+
+    
+
+<?php
+    require_once __DIR__.'/layouts/footer.php';
+?>
+

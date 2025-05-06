@@ -52,7 +52,7 @@ button:hover {
 
 .image-part {
     flex: 1;
-    background-image: url('images/postit.jpg');
+    background-image: url('../images/postit.jpg');
     background-size: cover;
     background-position: center;
 }
