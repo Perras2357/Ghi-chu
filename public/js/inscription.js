@@ -7,10 +7,16 @@ document.addEventListener('DOMContentLoaded', function () {
         let isValid = true;
         let errorMessage = '';
 
-        // Validation du mot de passe (doit contenir au moins 8 caractères)
-        if (input.name === 'password' && input.value.length < 8) {
+        // Validation du mot de passe (doit contenir au moins 6 caractères)
+        if (input.name === 'password' && input.value.length < 6) {
             isValid = false;
-            errorMessage = 'Le mot de passe doit comporter au moins 8 caractères.';
+            errorMessage = 'Le mot de passe doit comporter au moins 6 caractères.';
+        }
+
+        // Validation du mot de passe (doit contenir au moins 6 caractères)
+        if (input.name === 'password_confirm' && input.value.length < 6) {
+            isValid = false;
+            errorMessage = 'Les 2 mots de passe ne correspondent pas';
         }
 
         // Validation de l'email (format simple)
@@ -37,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return isValid;
     }
 
-    // Écouteurs d'événements pour la validation en temps réel
+    // pour la validation en temps réel
     inputs.forEach(input => {
         input.addEventListener('blur', () => {
             validateInput(input); // Valider lorsqu'on quitte le champ

@@ -29,8 +29,12 @@
             <span class="error-message"><?php echo isset($errors['email']) ? htmlspecialchars($errors['email']) : ''; ?></span> <!-- Message d'erreur -->
 
             <!-- Champ mot de passe -->
-            <input type="password" name="password" placeholder="8 characters minimum" required>
+            <input type="password" name="password" placeholder="6 characters minimum" required>
             <span class="error-message"><?php echo isset($errors['password']) ? htmlspecialchars($errors['password']) : ''; ?></span> <!-- Message d'erreur -->
+            
+            <!-- Champ mot de confirmation de mot de passe  -->
+            <input type="password" name="password_confirm" placeholder="6 characters minimum" required>
+            <span class="error-message"><?php echo isset($errors['password_confirm']) ? htmlspecialchars($errors['password_confirm']) : ''; ?></span> <!-- Message d'erreur -->
             
             <button type="submit">Sign up</button>
 

@@ -11,6 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $naissance = $_POST['naissance'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $password_corfirm=$POST['password_confirm'];
+    
+
 
     // Vérification si l'email existe déjà dans la base de données
     $stmt = $db->prepare("SELECT * FROM user WHERE mail = :email");
@@ -28,8 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Validation du mot de passe
-    if (strlen($password) < 8) {
-        $errors['password'] = "Le mot de passe doit comporter au moins 8 caractères.";
+    if (strlen($password) < 6) {
+        $errors['password'] = "Le mot de passe doit comporter au moins 6 caractères.";
+    }
+
+    // Vérification de la confirmaité des 
+    if (strlen($password_confirm)!==($password)) {
+        $errors['password_confirm'] = "Les deux mots de passe ne correspondent pas.";
     }
 
     // Si pas d'erreurs, procéder à l'inscription
