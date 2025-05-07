@@ -1,4 +1,7 @@
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     
     // Vérification de l'existance du repertoire de maintenance au cas où le site est en maintenance 
     if(is_dir("../maintenance"))
@@ -8,7 +11,8 @@
     }
 
     // Chargement config
-    $config = require '../app/config.php'; 
+    $config = require __DIR__ . '/../app/config.php'; 
+    
 
     // Démarrage des sessions
     session_name($config['session']['name']);  // définition du nom de cookie
@@ -20,7 +24,8 @@
     session_start();
 
     // Connexion à la BDD
-    require "../data/database.php";
+    require __DIR__ . '/../app/data/database.php';
+
     $db = connexion(
         $config['db']['host'],
         $config['db']['dbname'],
@@ -29,5 +34,9 @@
     );
 
     // Appel de la page de route, celle qui gère toutes les redirections
-    require("../app/routes.php");
+    require __DIR__ . '/../app/routes.php';
+
+    echo "Chargement réussi";
+
+
 ?>
