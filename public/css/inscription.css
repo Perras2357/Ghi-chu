@@ -1,21 +1,26 @@
+/* Réinitialisation des marges du body */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    height: 100%; /* Assurer que le body prend toute la hauteur de la page */
 }
 
+/* Conteneur principal */
 .form-container {
     display: flex;
-    height: 100vh;
+    justify-content: space-between; /* Disposition côte à côte du formulaire et de l'image */
+    align-items: stretch; /* Assure que les éléments prennent toute la hauteur de la page */
+    height: 100vh; /* Utilise toute la hauteur de la fenêtre */
 }
 
 .form-box {
-    flex: 1;
+    width: 50%; /* Formulaire prend 50% de la largeur */
+    background-color: white;
     padding: 40px;
-    background: #fff;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    position: relative;
+    box-sizing: border-box; /* Assure que le padding n'ajoute pas à la largeur totale */
 }
 
 .logo {
@@ -27,6 +32,7 @@ body {
 form {
     display: flex;
     flex-direction: column;
+    flex-grow: 1; /* Permet au formulaire d'occuper l'espace restant */
 }
 
 form input,
@@ -50,15 +56,40 @@ button:hover {
     background-color: #6b21a8;
 }
 
+/* Partie Image */
 .image-part {
-    flex: 1;
-    background-image: url('../images/postit.jpg');
+    width: 50%; /* Image prend 50% de la largeur */
     background-size: cover;
     background-position: center;
+    display: flex;
+    justify-content: center; /* Centre l'image horizontalement */
+    align-items: center; /* Centre l'image verticalement */
 }
 
-.message {
-    margin-top: 10px;
-    font-size: 14px;
-    color: green;
+.inscription-image {
+    width: 100%; /* L'image occupe toute la largeur de son conteneur */
+    height: 100%; /* L'image occupe toute la hauteur de son conteneur */
+    object-fit: cover; /* Garde les proportions tout en couvrant l'espace */
+}
+
+/* Style pour les champs invalides */
+input.invalid {
+    border: 2px solid red; /* Bordure rouge pour les champs invalides */
+}
+
+input:focus.invalid {
+    outline: none; /* Supprime le contour par défaut du navigateur */
+    border: 2px solid red; /* Maintient la bordure rouge lorsqu'un champ est en focus */
+}
+
+/* Style pour le message d'erreur */
+.error-message {
+    color: red;
+    font-size: 12px;
+    display: none; /* Par défaut, le message est caché */
+}
+
+/* Affichage du message d'erreur */
+input.invalid + .error-message {
+    display: block; /* Affiche le message d'erreur si le champ est invalide */
 }

@@ -1,7 +1,7 @@
 <?php
 
     // Chargement config
-        $config = require 'config.php'; 
+        $config = require_once('config.php'); 
 
         // chargement base_url
         $base_url = $config['base_url'];
@@ -16,7 +16,7 @@
         session_start();
 
         // Connexion à la BDD
-        require "../app/data/database.php";
+        require_once '../app/data/database.php';
         $db = connexion(
             $config['db']['host'],
             $config['db']['dbname'],
