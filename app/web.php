@@ -15,11 +15,12 @@
         ]);
         session_start();
 
-        // Connexion à la BDD
-        require_once '../app/data/database.php';
+        //Connexion à la BDD
+        require_once 'data/database.php';
         $db = connexion(
             $config['db']['host'],
             $config['db']['dbname'],
             $config['db']['user'],
             $config['db']['password']
         );
+

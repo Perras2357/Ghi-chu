@@ -1,2 +1,2 @@
 # Empêche l'accès à tous les fichiers dans ce dossier via le navigateur
-# Deny from all
+Deny from all

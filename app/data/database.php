@@ -1,11 +1,9 @@
 <?php 
-/*if(function_exists('connexion')){
-    return;
-}*/
+
     function connexion($host, $dbname, $user, $mdp)
     {
         try {
-            $dbh = new PDO("mysql:host=$host;port=3307;dbname=$dbname", $user, $mdp);
+            $dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $mdp);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             return $dbh;

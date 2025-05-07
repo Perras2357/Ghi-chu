@@ -8,7 +8,7 @@
     }
 
     // Appel de la page ou on établit la connexion à la base de données ety l'ouverture de session
-    //require_once("../app/web.php");
+    require_once("../app/web.php");
 
     // Appel de la page de route, celle qui gère toutes les redirections
     require_once("../app/routes.php");

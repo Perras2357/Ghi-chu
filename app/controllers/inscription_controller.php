@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__.'/../data/database.php'; // Connexion à la base de données
 
 // Initialiser un tableau d'erreurs vide
 $errors = [];
@@ -14,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     // Vérification si l'email existe déjà dans la base de données
-    $stmt = $dbh->prepare("SELECT * FROM user WHERE mail = :email");
+    $stmt = $db->prepare("SELECT * FROM user WHERE mail = :email");
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -39,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insérer l'utilisateur dans la base de données
-        $stmt = $dbh->prepare("INSERT INTO user (first_name, last_name, date_birth, mail, password, date_create) VALUES (:prenom, :nom, :naissance, :email, :password, NOW())");
+        $stmt = $db->prepare("INSERT INTO user (first_name, last_name, date_birth, mail, password, date_create) VALUES (:prenom, :nom, :naissance, :email, :password, NOW())");
         $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
         $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':naissance', $naissance, PDO::PARAM_STR);
