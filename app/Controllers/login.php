@@ -6,7 +6,10 @@
  * It is called when the user accesses the "login" route.
  */
 
-session_start(); // Bắt đầu session để quản lý trạng thái đăng nhập
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+; // Bắt đầu session để quản lý trạng thái đăng nhập
 
 // Nếu người dùng đã đăng nhập rồi, chuyển hướng về trang chính để tránh đăng nhập lại
 if (isset($_SESSION['user_id'])) {
@@ -15,7 +18,8 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Include config (thiết lập kết nối cơ sở dữ liệu, v.v.)
-require_once __DIR__ . '/../app/config.php'; 
+require_once(realpath(__DIR__ . '/../config.php'));
+ 
 
 // Khởi tạo các biến lưu giá trị form và thông báo lỗi
 $email = "";
@@ -66,5 +70,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Tải view trang đăng nhập để hiển thị form và thông báo (nếu có)
-include __DIR__ . '/../views/login.php';
+require_once __DIR__ .'/../views/login_view.php';
 ?>
