@@ -93,3 +93,7 @@ input:focus.invalid {
 input.invalid + .error-message {
     display: block; /* Affiche le message d'erreur si le champ est invalide */
 }
+/* Style pour le champ de confirmation de mot de passe */
+input[name="password_confirm"] {
+    margin-bottom: 10px; /* Espacement supplémentaire sous ce champ */
+}

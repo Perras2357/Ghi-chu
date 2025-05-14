@@ -7,12 +7,11 @@ $message = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Récupérer les données du formulaire
     $prenom = $_POST['prenom'];
-    $nom = $_POST['nom'];
+    $nom = $_POST['nom']; // Correction de la faute ici
     $naissance = $_POST['naissance'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $password_corfirm=$POST['password_confirm'];
-    
+    $password_confirm = $_POST['password_confirm']; // Correction de la variable ici
 
 
     // Vérification si l'email existe déjà dans la base de données
@@ -35,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['password'] = "Le mot de passe doit comporter au moins 6 caractères.";
     }
 
-    // Vérification de la confirmaité des 
-    if (strlen($password_confirm)!==($password)) {
+    // Vérification de la correspondance des mots de passe
+    if ($password !== $password_confirm) { // Correction de la condition pour comparer les valeurs, pas la longueur
         $errors['password_confirm'] = "Les deux mots de passe ne correspondent pas.";
     }
 
@@ -46,7 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insérer l'utilisateur dans la base de données
-        $stmt = $db->prepare("INSERT INTO user (first_name, last_name, date_birth, mail, password, date_create) VALUES (:prenom, :nom, :naissance, :email, :password, NOW())");
+        $stmt = $db->prepare("INSERT INTO user (first_name, last_name, date_birth, mail, password, date_create) 
+                              VALUES (:prenom, :nom, :naissance, :email, :password, NOW())");
         $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
         $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':naissance', $naissance, PDO::PARAM_STR);

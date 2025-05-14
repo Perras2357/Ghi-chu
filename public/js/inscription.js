@@ -13,10 +13,13 @@ document.addEventListener('DOMContentLoaded', function () {
             errorMessage = 'Le mot de passe doit comporter au moins 6 caractères.';
         }
 
-        // Validation du mot de passe (doit contenir au moins 6 caractères)
-        if (input.name === 'password_confirm' && input.value.length < 6) {
-            isValid = false;
-            errorMessage = 'Les 2 mots de passe ne correspondent pas';
+        // Validation de la confirmation de mot de passe 
+        if (input.name === 'password_confirm') {
+            const password = form.querySelector('input[name="password"]').value;
+            if (input.value !== password) {
+                isValid = false;
+                errorMessage = 'Les 2 mots de passe ne correspondent pas.';
+            }
         }
 
         // Validation de l'email (format simple)
