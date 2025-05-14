@@ -23,4 +23,3 @@
             $config['db']['user'],
             $config['db']['password']
         );
-

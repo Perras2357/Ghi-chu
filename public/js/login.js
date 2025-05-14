@@ -1,62 +1,63 @@
-// public/js/login.js
-// JavaScript for client-side validation of the login form (real-time validation).
-// This script provides instant feedback on the email and password fields.
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("login-form");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const emailError = document.getElementById("email-error");
+  const passwordError = document.getElementById("password-error");
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Lấy các phần tử form và trường input
-    var form = document.getElementById('loginForm');
-    var emailInput = document.getElementById('email');
-    var passwordInput = document.getElementById('password');
-    var emailError = document.getElementById('email-error');
-    var passwordError = document.getElementById('password-error');
+  function setValidStyles(input) {
+    input.style.borderColor = "green";
+    input.style.backgroundColor = "#e6ffea"; 
+  }
 
-    // Kiểm tra trường email khi người dùng nhập
-    emailInput.addEventListener('input', function() {
-        // Sử dụng cơ chế validation của HTML5: validity.valueMissing & typeMismatch
-        if (emailInput.validity.valueMissing) {
-            // Email trống
-            emailError.textContent = "Veuillez entrer votre adresse email."; // "Vui lòng nhập địa chỉ email."
-            emailError.style.display = 'block';
-            emailInput.classList.add('invalid');
-        } else if (emailInput.validity.typeMismatch) {
-            // Định dạng email không đúng
-            emailError.textContent = "Format d'email invalide."; // "Định dạng email không hợp lệ."
-            emailError.style.display = 'block';
-            emailInput.classList.add('invalid');
-        } else {
-            // Email hợp lệ
-            emailError.textContent = "";
-            emailError.style.display = 'none';
-            emailInput.classList.remove('invalid');
-        }
-    });
+  function setInvalidStyles(input) {
+    input.style.borderColor = "#d1433d";
+    input.style.backgroundColor = "#ffe6e6"; 
+  }
 
-    // Kiểm tra trường password khi người dùng nhập
-    passwordInput.addEventListener('input', function() {
-        if (passwordInput.value.trim() === "") {
-            // Mật khẩu trống
-            passwordError.textContent = "Veuillez entrer votre mot de passe."; // "Vui lòng nhập mật khẩu."
-            passwordError.style.display = 'block';
-            passwordInput.classList.add('invalid');
-        } else {
-            passwordError.textContent = "";
-            passwordError.style.display = 'none';
-            passwordInput.classList.remove('invalid');
-        }
-    });
+  function resetStyles(input) {
+    input.style.borderColor = "#ccc";
+    input.style.backgroundColor = "white";
+  }
 
-    // Kiểm tra lần cuối khi form được submit
-    form.addEventListener('submit', function(event) {
-        // Nếu trường nào không hợp lệ thì chặn form submit
-        if (emailInput.value.trim() === '' || !emailInput.checkValidity() || passwordInput.value.trim() === '') {
-            event.preventDefault(); // Ngăn không cho form submit
+  function validateEmail() {
+    const value = emailInput.value.trim();
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            // Tùy chọn: đưa con trỏ đến field lỗi đầu tiên
-            if (emailInput.value.trim() === '' || !emailInput.checkValidity()) {
-                emailInput.focus();
-            } else if (passwordInput.value.trim() === '') {
-                passwordInput.focus();
-            }
-        }
-    });
+    if (!regex.test(value)) {
+      setInvalidStyles(emailInput);
+      emailError.textContent = "Format d'email invalide.";
+      return false;
+    } else {
+      setValidStyles(emailInput);
+      emailError.textContent = "";
+      return true;
+    }
+  }
+
+  function validatePassword() {
+    const value = passwordInput.value;
+
+    if (value.length < 6) {
+      setInvalidStyles(passwordInput);
+      passwordError.textContent = "Mot de passe trop court (min. 6 caractères).";
+      return false;
+    } else {
+      setValidStyles(passwordInput);
+      passwordError.textContent = "";
+      return true;
+    }
+  }
+
+  emailInput.addEventListener("input", validateEmail);
+  passwordInput.addEventListener("input", validatePassword);
+
+  form.addEventListener("submit", function (e) {
+    const isEmailValid = validateEmail();
+    const isPasswordValid = validatePassword();
+
+    if (!isEmailValid || !isPasswordValid) {
+      e.preventDefault(); 
+    }
+  });
 });

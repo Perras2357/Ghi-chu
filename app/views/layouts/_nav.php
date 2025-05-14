@@ -1,10 +1,12 @@
 
     
-    
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-primary-emphasis sidebar" style="width: 280px;">
+    <!-- <div class="d-flex flex-column flex-shrink-0 p-3 text-primary-emphasis sidebar" style="width: 280px;"> -->
+
+    <div class="container col-4 col-sm-4 col-md-2  text-primary-emphasis sidebar">    
+
         
         <!-- div logo -->
-        <div class="logo-section text-center">
+        <div class="logo-section text-center mb-3">
             <a href="index.php?r=home" class="nav-link">
                 <img src="images/ghi_chu_logo.png" alt="Logo" class="logo-img mx-auto">
             </a>
@@ -13,24 +15,18 @@
         <hr>
 
         <!-- div menu -->
-        <ul class="nav nav-pills flex-column mb-auto text-center">
+        <ul class="nav nav-pills mb-auto text-center">
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                <i class="bi bi-collection-fill"></i>
-                    My Post-Its
-                    </a>
+                    <i class="bi bi-collection-fill">My Post-Its</i>    
+                </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="bi bi-share-fill"></i>
-                    Post-its shared                    
+                    <i class="bi bi-share-fill">Post-its shared</i>                    
                 </a>
             </li>
         </ul>
-
-
-
-
         <!-- div profil -->
         <div class="dropdown bottom-section px-2">
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" 

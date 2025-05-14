@@ -1,74 +1,95 @@
 <?php
-/**
- * controllers/login.php
- * Controller for handling login form display and authentication.
- * Place this file in the controllers directory.
- * It is called when the user accesses the "login" route.
- */
-
-if (session_status() == PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-; // Bắt đầu session để quản lý trạng thái đăng nhập
 
-// Nếu người dùng đã đăng nhập rồi, chuyển hướng về trang chính để tránh đăng nhập lại
+// Redirige vers la page d'accueil si l'utilisateur est déjà connecté
 if (isset($_SESSION['user_id'])) {
-    header("Location: index.php?page=home"); // điều hướng đến trang chủ (hoặc trang quản lý ghi chú)
+    header("Location: index.php");
     exit;
 }
 
-// Include config (thiết lập kết nối cơ sở dữ liệu, v.v.)
-require_once(realpath(__DIR__ . '/../config.php'));
- 
+// Chargement de la configuration
+$configPath = realpath(__DIR__ . '/../config.php');
 
-// Khởi tạo các biến lưu giá trị form và thông báo lỗi
-$email = "";
-$error_message = "";
-$error_email = "";
-$error_password = "";
+if (!$configPath || !file_exists($configPath)) {
+    die("Erreur : Impossible de charger le fichier config.php");
+}
 
-// Xử lý khi người dùng gửi form (REQUEST_METHOD == POST)
+$config = require $configPath;
+
+if (!isset($config['db'])) {
+    die("Erreur : Clé 'db' manquante dans config.php");
+}
+
+$dbConfig = $config['db'];
+
+// Connexion PDO
+try {
+    $pdo = new PDO(
+        "mysql:host={$dbConfig['host']};dbname={$dbConfig['dbname']};charset=utf8",
+        $dbConfig['user'],
+        $dbConfig['password']
+    );
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur de connexion à la base de données : " . $e->getMessage());
+}
+
+// Variables du formulaire
+$mail = '';
+$password = '';
+$error_message = '';
+$error_email = '';
+$error_password = '';
+
+// Traitement du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Lấy dữ liệu từ form và loại bỏ khoảng trắng thừa
-    $email    = trim($_POST['email'] ?? '');
+    $mail     = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    // Kiểm tra dữ liệu hợp lệ (các trường không được rỗng)
-    if (empty($email) || empty($password)) {
-        $error_message = "Veuillez remplir tous les champs."; // Thông báo: "Vui lòng điền đầy đủ các trường."
+    if (empty($mail) || empty($password)) {
+        $error_message = "Veuillez remplir tous les champs.";
     } else {
-        // Chuẩn bị truy vấn kiểm tra người dùng theo email
-        $stmt = $pdo->prepare("SELECT * FROM user WHERE email = ?");
-        $stmt->execute([$email]);
+        $stmt = $pdo->prepare("SELECT * FROM user WHERE mail = ?");
+        $stmt->execute([$mail]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        if (!$user) {
-            // Email không tồn tại trong database
-            $error_email = "Vous n’avez pas de compte. <a href='index.php?page=register'>Créer un compte</a>";
-        } else {
-            // So sánh mật khẩu nhập vào với mật khẩu lưu trong DB (giả sử đã được hash)
-            if (!password_verify($password, $user['password'])) {
-                // Mật khẩu không đúng
-                $error_password = "Mot de passe incorrect, veuillez réessayer.";
-                // Xoá giá trị mật khẩu đã nhập để người dùng nhập lại
-                $password = "";
-            } else {
-                // Thông tin đăng nhập chính xác – tạo session cho người dùng
-                $_SESSION['user_id']    = $user['id'];
-                $_SESSION['user_email'] = $user['email'];
-                // (Nếu bảng user có các thông tin khác như tên, ta có thể lưu vào session để hiển thị nếu cần)
 
-                // Lưu thời điểm đăng nhập để phục vụ kiểm tra phiên hết hạn (auto-logout)
+        if (!$user) {
+            $error_email = "Aucun compte trouvé. <a href='index.php?r=register'>Créer un compte</a>";
+        } else {
+            $dbPassword = $user['password'];
+
+            // mot de passe déjà hashé
+            if (password_verify($password, $dbPassword)) {
+                $_SESSION['user_id']       = $user['id_user'];
+                $_SESSION['user_email']    = $user['mail'];
                 $_SESSION['last_activity'] = time();
-                
-                // Chuyển hướng người dùng đến trang sau khi đăng nhập (ví dụ: trang chủ hoặc dashboard)
-                header("Location: index.php?page=home");
+
+                header("Location: index.php");
                 exit;
+
+            // mot de passe stocké en clair 
+            } elseif ($password === $dbPassword) {
+                // migration vers mot de passe hashé
+                $newHash = password_hash($password, PASSWORD_DEFAULT);
+                $updateStmt = $pdo->prepare("UPDATE user SET password = ? WHERE id_user = ?");
+                $updateStmt->execute([$newHash, $user['id_user']]);
+
+                $_SESSION['user_id']       = $user['id_user'];
+                $_SESSION['user_email']    = $user['mail'];
+                $_SESSION['last_activity'] = time();
+
+                header("Location: index.php");
+                exit;
+
+            //mot de passe incorrect
+            } else {
+                $error_password = "Mot de passe incorrect, veuillez réessayer.";
             }
         }
     }
 }
 
-// Tải view trang đăng nhập để hiển thị form và thông báo (nếu có)
-require_once __DIR__ .'/../views/login_view.php';
-?>
+// Affiche le formulaire
+require_once __DIR__ . '/../views/login_view.php';

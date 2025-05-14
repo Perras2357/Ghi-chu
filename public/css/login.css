@@ -1,72 +1,145 @@
-/* public/css/login.css */
-/* CSS styles for the login page */
-.login-container {
-    width: 300px;
-    margin: 50px auto;
-    font-family: Arial, sans-serif;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.login-container h2 {
-    text-align: center;
+body, html {
+  height: 100%;
+  background-color: #f9f9f9;
 }
 
-.login-container form div {
-    margin-bottom: 15px;
+.container {
+  display: flex;
+  height: 100vh;
 }
 
-.login-container label {
-    display: block;
-    margin-bottom: 5px;
+.left {
+  flex: 1;
+  background-color: #fff;
+  padding: 40px 60px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-.login-container input[type="email"],
-.login-container input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
+.logo {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  width: 200px;
 }
 
-.login-container button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
+.form-wrapper {
+  margin: auto;
+  width: 100%;               
+  max-width: 700px;          
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.login-container button[type="submit"]:hover {
-    background-color: #45a049;
+
+form {
+  width: 100%;
+  background-color: #fff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-.links {
-    text-align: center;
-    margin-top: 10px;
+
+
+.left h1 {
+  margin-bottom: 10px;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
 }
 
-.links a {
-    color: #007BFF;
-    text-decoration: none;
+.left p {
+  margin-bottom: 30px;
+  color: #666;
+  text-align: center;
 }
 
-.links a:hover {
-    text-decoration: underline;
+.form-group {
+  margin-bottom: 20px;
 }
 
-/* Style for error messages */
-.error-msg {
-    color: red;
-    font-size: 0.9em;
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
 }
 
-/* Error messages for form fields (hidden by default) */
-.error-field {
-    color: red;
-    font-size: 0.9em;
-    display: none;
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-/* Highlight invalid input fields with red border */
-.invalid {
-    border: 1px solid red;
+.error-message {
+  color: red;
+  font-size: 0.85em;
+  margin-top: 4px;
+}
+
+.forgot {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.forgot a {
+  text-decoration: none;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.signin-btn {
+  width: 100%;
+  background-color: #8e44ad;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.signin-btn:hover {
+  background-color: #732d91;
+}
+
+.signup {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.signup a {
+  color: #8e44ad;
+  text-decoration: none;
+}
+
+.right {
+  flex: 1;
+  background: url('../images/postit.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .right {
+    height: 200px;
+  }
+
+  .logo {
+    position: static;
+    margin-bottom: 20px;
+  }
 }
