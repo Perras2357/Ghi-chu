@@ -14,7 +14,7 @@
     if(!empty($postits_home))
     {
         // // on récupère juste les trois premiers post-it
-        $postits_home = array_slice($postits_home, 0, 3);
+        //$postits_home = array_slice($postits_home, 0, 3);
 
         // On récupère les post-it partagés
         $postits_shared_home = getPostItShared($id_user);
@@ -25,6 +25,9 @@
             $postits_shared_home = array_slice($postits_shared_home, 0, 2);
         }
     }
+
+    // On récupère les post-it archivés
+    $postits_archived_home = getPostItArchived($id_user);
     
 
 

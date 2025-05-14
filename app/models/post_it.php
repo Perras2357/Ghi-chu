@@ -87,6 +87,25 @@
         return $postits_share;
     }
 
+
+    //fonction post-it archivé 
+    function getPostItArchived($id_user) 
+    {
+        global $attributs;
+        global $db;
+
+        // Requête préparée pour récupérer tous les post-its archivés d'un utilisateur
+        $sql = "SELECT * FROM postit WHERE id_user = ? AND flag_delete = 1 ORDER BY date_delete_postit DESC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_user]);
+
+        // Récupérer tous les résultats
+        $postits_archived = $stmt->fetchAll();
+
+        // Retourner les résultats
+        return $postits_archived;
+    }
+
     //fonction qui permet d'archiver un post-it
     function archivePostIt($id_postit) 
     {
@@ -101,6 +120,47 @@
         if ($stmt->rowCount() == 0) {
             // Gérer l'erreur de mise à jour
             return 0;
+        }
+        else // Ajout dans la table historique
+        {
+            $id_user = 1;
+            //On récupère les infos du postit
+            // Requête préparée pour récupérer tous les post-its d'un utilisateur
+            $sql = "SELECT * FROM postit WHERE id_postit = ? AND flag_delete = 1";
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$id_postit]);
+
+            // Récupérer tous les résultats
+            $postit = $stmt->fetch(PDO::FETCH_OBJ);
+
+            
+          
+            $title = $postit->title;
+            $content = $postit->content;
+            $date_create_postit = $postit->date_create_postit;
+            $date_delete_postit = $postit->date_delete_postit;
+            var_dump($title);
+
+
+            //requette preparé pour l'ajout dans la base de donnée 
+            $sql = "INSERT INTO historic (id_postit, title, content, date_create_postit, date_delete_postit) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $db->prepare($sql);
+
+            // Exécuter la requête avec les valeurs fournies
+            $stmt->execute([$id_postit, $title, $content, $date_create_postit, $date_delete_postit]);
+            
+            // Vérifier si l'insertion a réussi
+            if ($stmt->rowCount() == 0) {
+                // Gérer l'erreur d'insertion
+                return 0;
+            }
+        
+            // Récupérer l'ID du post-it créé
+            $id_postit = $db->lastInsertId();
+            // Retourner l'ID du post-it créé
+            return $id_postit;
+
+    
         }
         // Retourner 1 si la mise à jour a réussi
         return 1;
