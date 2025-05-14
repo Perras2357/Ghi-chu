@@ -32,11 +32,11 @@
                                 <button class="btn btn-lg btn-primary" type="submit" name="submit_id" id="submit_id">Create</button>
                             </div>
                             <div class="error-message" id="errorForm"></div>
-                            <?php if (isset($_SESSION['error'])): ?>
+                            <?php if (isset($error)): ?>
                                 <div class="error-message" style="color: red;">
-                                    <?php echo $_SESSION['error']; ?>
+                                    <?php echo $error; ?>
                                 </div>
-                                <?php unset($_SESSION['error']); // Supprimer l'erreur après l'affichage ?>
+                                <?php unset($error); // Supprimer l'erreur après l'affichage ?>
                             <?php endif; ?>
 
                         </form>

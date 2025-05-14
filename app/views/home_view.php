@@ -2,7 +2,7 @@
     require_once __DIR__.'/layouts/head.php';
 ?>
 
-    <div class="container p-3">
+    <div class="container p-3 " style="margin-left: 250px; height: 100vh; overflow-y: auto;">
 
         <!-- Ligne qui contiedra uniquement l'ajout de post-it -->
         <div class="row row-cols-6 row-cols-sm-6 row-cols-md-6 g-2">
@@ -26,7 +26,7 @@
                     <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center mb-5">
                         <div class="card">
                             <div class="card-body">
-                                <a class="text-center text-decoration-none" href="index.php?r=my_post_it">
+                                <a class="text-center text-decoration-none" href="index.php?r=my_list_post_it">
                                     <div class="card-text libelle">
                                         <p> My Post-Its</p>
                                     </div>
@@ -47,7 +47,7 @@
                                             <tr>
                                                 <th scope="row"> <?=$i++ ?> </th> <!-- post incrementation -->
                                                 <td>
-                                                    <a class="text-black text-decoration-none" href="index.php?r=test&id_postit=<?= $postit->id_postit ?>">
+                                                    <a class="text-black text-decoration-none" href="index.php?r=one_post_it&id_postit=<?= $postit->id_postit ?>">
                                                         <?= $postit->title ?></td>
                                                     </a>
                                                 <td><?= $postit->date_create_postit ?></td>
@@ -67,8 +67,8 @@
 
 
             <!-- Colonne post-it partagés   -->
-            <?php if(!empty($postits_shared_home)): ?>
-                <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center">
+            <?php //if(!empty($postits_shared_home)): ?>
+                <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center mb-5">
                     <div class="card">
                         <div class="card-body">
                             <div class="card-text">
@@ -100,7 +100,47 @@
                         </div>
                     </div>
                 </div>
+            <?php //endif; ?>
+
+
+
+    
+            <!-- Colonne post-it Archivé  -->
+            <?php if(!empty($postits_archived_home)): ?>
+                <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center mb-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p class='libelle2'> Post-Its Archive</p>
+                            </div>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Titre</th>
+                                        <th scope="col">Date-archive</th>
+                                        <th scope="col">Date-create</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <?php $i = 1; ?>  <!--pour le numéro de ligne -->
+                                    <?php foreach ($postits_archived_home as $postit_archived): ?>
+                                        <tr>
+                                            <th scope="row"> <?=$i++ ?> </th> <!-- post incrementation -->
+                                            <td><?= $postit_archived->title ?></td>
+                                            <td><?= $postit_archived->date_create_postit ?></td>
+                                            <td><?= $postit_archived->date_delete_postit ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             <?php endif; ?>
+
             
         </div>
 

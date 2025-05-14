@@ -4,7 +4,6 @@
 
     <div class="container col-4 col-sm-4 col-md-2  text-primary-emphasis sidebar">    
 
-        
         <!-- div logo -->
         <div class="logo-section text-center mb-3">
             <a href="index.php?r=home" class="nav-link">
