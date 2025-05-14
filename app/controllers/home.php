@@ -13,17 +13,14 @@
     $postits_home = getAllPostIt($id_user);
     if(!empty($postits_home))
     {
-        //on les classes dans un tableau par ordre de date_modification
-        $postits_home = array_reverse($postits_home);
-        // on récupère juste les deux premiers post-it
-        $postits_home = array_slice($postits_home, 0, 2);
+        // // on récupère juste les trois premiers post-it
+        $postits_home = array_slice($postits_home, 0, 3);
 
         // On récupère les post-it partagés
         $postits_shared_home = getPostItShared($id_user);
         if(!empty($postits_shared_home))
         {
-            //on les classes dans un tableau par ordre de date_modification
-            $postits_shared_home = array_reverse($postits_shared_home);
+            
             // on récupère juste les deux premiers post-it
             $postits_shared_home = array_slice($postits_shared_home, 0, 2);
         }

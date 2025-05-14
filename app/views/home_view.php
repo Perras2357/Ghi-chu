@@ -26,7 +26,7 @@
                     <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center mb-5">
                         <div class="card">
                             <div class="card-body">
-                                <a class="text-center text-decoration-none" href="index.php?r=my_post_it">
+                                <a class="text-center text-decoration-none" href="index.php?r=my_list_post_it">
                                     <div class="card-text libelle">
                                         <p> My Post-Its</p>
                                     </div>
@@ -47,7 +47,7 @@
                                             <tr>
                                                 <th scope="row"> <?=$i++ ?> </th> <!-- post incrementation -->
                                                 <td>
-                                                    <a class="text-black text-decoration-none" href="index.php?r=test&id_postit=<?= $postit->id_postit ?>">
+                                                    <a class="text-black text-decoration-none" href="index.php?r=one_post_it&id_postit=<?= $postit->id_postit ?>">
                                                         <?= $postit->title ?></td>
                                                     </a>
                                                 <td><?= $postit->date_create_postit ?></td>

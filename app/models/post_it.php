@@ -58,7 +58,7 @@
         global $db;
 
         // Requête préparée pour récupérer tous les post-its d'un utilisateur
-        $sql = "SELECT * FROM postit WHERE id_user = ? AND flag_delete = 0";
+        $sql = "SELECT * FROM postit WHERE id_user = ? AND flag_delete = 0 ORDER BY date_modification DESC";
         $stmt = $db->prepare($sql);
         $stmt->execute([$id_user]);
 
@@ -76,7 +76,7 @@
         global $db;
 
         // Requête préparée pour récupérer tous les post-its partagés d'un utilisateur
-        $sql = "SELECT * FROM share WHERE id_user = ?";
+        $sql = "SELECT * FROM share WHERE id_user = ? ORDER BY date_share DESC";
         $stmt = $db->prepare($sql);
         $stmt->execute([$id_user]);
 
@@ -85,6 +85,25 @@
 
         // Retourner les résultats
         return $postits_share;
+    }
+
+    //fonction qui permet d'archiver un post-it
+    function archivePostIt($id_postit) 
+    {
+        global $db;
+
+        // Requête préparée pour archiver un post-it
+        $sql = "UPDATE postit SET flag_delete = 1 , date_delete_postit = NOW() WHERE id_postit = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_postit]);
+
+        // Vérifier si la mise à jour a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de mise à jour
+            return 0;
+        }
+        // Retourner 1 si la mise à jour a réussi
+        return 1;
     }
 
 
