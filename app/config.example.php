@@ -11,7 +11,8 @@
             'lifetime' => 3600, // 1h
             'secure' => false, // à true en HTTPS
             'httponly' => true
-        ]
+        ],
+        'base_url' => '/Dossier_source_projet/',
     ];
 
 ?>

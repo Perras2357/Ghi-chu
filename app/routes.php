@@ -1,16 +1,14 @@
 <?php
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = trim($uri, '/'); // enlève les / au début et à la fin
 
-switch ($uri) {
-    case '':
-    case 'login':
-        require '/controllers/login.php';
-        break;
-    case 'signup':
-        require '/controllers/signup.php';
-        break;
-    default:
+    // Récupère la route dans l'URL (ex: login, home)
+    $route = $_GET['r'] ?? 'home'; // par défaut, "home"
+
+    // Définit le chemin vers le fichier de route
+    $controllerFile = "../app/controllers/$route.php";
+
+    if (file_exists($controllerFile)) {
+        require $controllerFile;
+    } else {
         http_response_code(404);
-        echo "404 - Page non trouvée";
-}
+        echo "<h1>404 - Page non trouvée</h1>";
+    }

@@ -1,0 +1,20 @@
+body {
+    height: 100vh;
+    overflow: hidden;
+    /* Ici on définit le petit point violet de rayon 1.5px */
+    background-image: radial-gradient(#c1b7db 1.5px, transparent 1.5px);
+    background-size: 20px 20px; /* pour repéter le point tous les 20 pixels verticalement et horizontalement*/
+}
+.sidebar {
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #e3ddea; /* violet */
+}
+.logo-img {
+    width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+}
