@@ -21,9 +21,10 @@
                                         aria-expanded="false"
                                         style="cursor: pointer;"></i>
                                         <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="#">Modifier</a></li>
+                                            <li><a class="dropdown-item" href="index.php?r=update_post_it&id_postit=<?= $postit->id_postit ?>">Modifier</a></li>
                                             <li><a class="dropdown-item" href="#">Partager</a></li>
                                             <li><a class="dropdown-item" href="#">Supprimer</a></li>
+                                            <li><a class="dropdown-item" href="#">New version</a></li>
                                         </ul>
                                     </div>
                                 </div>
