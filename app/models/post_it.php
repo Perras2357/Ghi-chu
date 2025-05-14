@@ -87,6 +87,45 @@
         return $postits_share;
     }
 
+    //function qui modifie un post-it
+    function updatePostItContent($id_postit, $new_content, $id_user)
+{
+    global $db;
+
+    // Vérification : nombre minimal/maximal de caractères
+    $minLength = 1;
+    $maxLength = 500;
+    $new_content = trim($new_content);
+
+    if (strlen($new_content) < $minLength || strlen($new_content) > $maxLength) {
+        return ['success' => false, 'error' => "Le contenu doit contenir entre $minLength et $maxLength caractères."];
+    }
+
+    // Récupère le post-it existant
+    $sql = "SELECT content FROM postit WHERE id_postit = ? AND id_user = ? AND flag_delete = 0";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$id_postit, $id_user]);
+    $postit = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$postit) {
+        return ['success' => false, 'error' => "Post-it introuvable ou non autorisé."];
+    }
+
+    // Vérifie si le contenu a changé
+    if ($postit['content'] === $new_content) {
+        return ['success' => false, 'error' => "Aucun changement détecté dans le contenu."];
+    }
+
+    // Mise à jour du contenu
+    $sql = "UPDATE postit SET content = ?, date_modification = NOW() WHERE id_postit = ? AND id_user = ?";
+    $stmt = $db->prepare($sql);
+    $success = $stmt->execute([$new_content, $id_postit, $id_user]);
+
+    return ['success' => $success];
+}
+
+
+
 
 
 
