@@ -3,7 +3,7 @@
 ?>
 
 
-    <div class="main-content">
+    <div class="main-content" style="margin-left: 250px; height: 100vh; overflow-y: auto;">
         <div class="container py-4">
             <div class="row row-cols-8 row-cols-sm-8 row-cols-md-8 g-2 mt-4">
                 
@@ -53,22 +53,61 @@
                 <?php endif; ?>
                 <!-- Duplique d'autres <div class="col">...</div> pour tes autres post-its -->
                 
-                <!-- tableau des utilisateurs -->
+                <!-- tableau des utilisateurs a qui on partage -->
                     <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center mb-5">
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-text libelle">
-                                    <p> My Post-Its</p>
+                                    <p>collaborator</p>
                                 </div>
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">Nom</th>
                                             <th scope="col">mail</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col">Retirer</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if(!empty($users_shared)): ?>
+
+                                            <?php foreach ($users_shared as $user): ?>
+                                                <tr>
+                                                    <td><?= $user->first_name ?></td>
+                                                    <td><?= $user->mail ?></td>
+                                                    <td>
+                                                        <!-- liste déroulante -->
+                                                        <form method="POST">
+                                                            <button type="submit" name="move" value="<?= $user->id_user ?>" class="btn btn-sm btn-outline-primary">Move</button>
+                                                        </form>
+
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- tableau des utilisateurs a qui on partage -->
+                    <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center mb-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-text libelle">
+                                    <p>Add collaborator</p>
+                                </div>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nom</th>
+                                            <th scope="col">mail</th>
+                                            <th scope="col">Add</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<<<<<<< HEAD
                                     <?php $i = 1; ?>  <!--pour le numéro de ligne -->
                                         <?php foreach ($users_shared as $user): ?>
                                             <tr>
@@ -80,6 +119,27 @@
                                                 <td><?= $postit->date_modification ?></td>
                                             </tr>
                                         <?php endforeach; ?>
+=======
+
+                                        <?php if(!empty($all_users)): ?>
+                                            <?php foreach ($all_users as $all_user): ?>
+
+                                                <tr>
+                                                    <td><?= $all_user->first_name ?></td>
+                                                    <td><?= $all_user->mail ?></td>
+                                                    <td>
+                                                        <!-- liste déroulante -->
+                                                        <form method="POST">
+                                                            <label>
+                                                                <button type="submit" name="add_user" value="<?= $all_user->id_user ?>" class="btn btn-sm btn-outline-primary">add</button>
+                                                            </label>
+                                                        </form>
+
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+>>>>>>> feature/post-it
 
                                     </tbody>
                                 </table>

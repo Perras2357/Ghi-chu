@@ -3,7 +3,7 @@
 ?>
 
 
-    <div class="container">
+    <div class="container" style="margin-left: 250px; height: 100vh; overflow-y: auto;">
         <div class="row">
             <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center mb-5">
                 <div class="card mt-5">
