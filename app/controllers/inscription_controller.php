@@ -5,10 +5,6 @@ $message = '';
 
 // Vérification si le formulaire est soumis
 if (isset($_POST['inscription'])) {
-
-//pour debug
-//echo '<pre>POST = '; var_dump($_POST); echo '</pre>';
-
     // Récupérer et nettoyer les données du formulaire
     $prenom           = trim($_POST['prenom'] ?? '');
     $nom              = trim($_POST['nom'] ?? '');
@@ -27,21 +23,18 @@ if (isset($_POST['inscription'])) {
         $errors['nom'] = "Veuillez entrer un nom.";
     }
 
-    // Validation de la date de naissance (format AAAA/MM/JJ)
+    // 3. Validation de la date de naissance (format AAAA/MM/JJ)
     if (!preg_match('/^[0-9]{4}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/', $naissance)) {
         $errors['naissance'] = "La date de naissance doit être au format AAAA/MM/JJ.";
     }
 
-
-    //4. Validation du format de l'email
+    // 4. Validation du format de l'email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "Veuillez entrer un email valide.";
-        
     } else {
         // 5. Vérification si l'email existe déjà
-        $stmt = $db->prepare("SELECT * FROM user WHERE mail = :email");
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->execute();
+        $stmt = $db->prepare("SELECT 1 FROM user WHERE mail = :email");
+        $stmt->execute([':email' => $email]);
         if ($stmt->fetch(PDO::FETCH_ASSOC)) {
             $errors['email'] = "L'email est déjà utilisé.";
         }
@@ -58,27 +51,20 @@ if (isset($_POST['inscription'])) {
     }
 
     // Si aucune erreur, procéder à l'inscription
-    
     if (empty($errors)) {
-
-        // Hachage du mot de passe
-
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-        // Insérer l'utilisateur dans la base de données
         $stmt = $db->prepare("
             INSERT INTO user (first_name, last_name, date_birth, mail, password, date_create) 
             VALUES (:prenom, :nom, :naissance, :email, :password, NOW())
         ");
-        $stmt->bindParam(':prenom',           $prenom,           PDO::PARAM_STR);
-        $stmt->bindParam(':nom',              $nom,              PDO::PARAM_STR);
-        $stmt->bindParam(':naissance',        $naissance,        PDO::PARAM_STR);
-        $stmt->bindParam(':email',            $email,            PDO::PARAM_STR);
-        $stmt->bindParam(':password',         $hashed_password,  PDO::PARAM_STR);
+        $stmt->bindParam(':prenom',    $prenom,          PDO::PARAM_STR);
+        $stmt->bindParam(':nom',       $nom,             PDO::PARAM_STR);
+        $stmt->bindParam(':naissance', $naissance,       PDO::PARAM_STR);
+        $stmt->bindParam(':email',     $email,           PDO::PARAM_STR);
+        $stmt->bindParam(':password',  $hashed_password, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            // Succès : rediriger vers la connexion
-            header("Location: index/?r=login");
+            header("Location: login.php");
             exit();
         } else {
             $message = "Erreur lors de l'inscription. Veuillez réessayer.";
@@ -86,7 +72,5 @@ if (isset($_POST['inscription'])) {
     }
 }
 
-//pour debug
-//echo '<pre>'; var_dump($errors); echo '</pre>';
 // Charger la vue
 require_once '../app/views/inscription_view.php';
