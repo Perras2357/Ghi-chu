@@ -13,18 +13,10 @@
     // Redirige vers r=home si aucun paramètre 'r' dans l'URL
     if (!isset($_GET['r'])) 
     {
-        header('Location: index.php?r=forgot_password');
+        header('Location: index.php?r=login');
         exit;
     }
 
     // Appel de la page de route, celle qui gère toutes les redirections
-<<<<<<< HEAD
     require("../app/routes.php");
 ?>
-=======
-    require_once("../app/routes.php");
-
-
-
-?>
->>>>>>> 9455623 (mise en forme des liens pour qu'ils ressemblent à : chu/public/index.php?r=XXX avec XXX=le nom du controller associé controllers/XXX.php)
