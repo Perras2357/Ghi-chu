@@ -40,7 +40,7 @@
           <button type="submit" name='submit_button' class="signin-btn">Sign in</button>
 
           <div class="signup">
-            Don't have an account ? <a href="index.php?r=inscription">Sign up</a>
+            Don't have an account ? <a href="index.php?r=inscription_controller">Sign up</a>
           </div>
         </form>
       </div>

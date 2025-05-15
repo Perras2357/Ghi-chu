@@ -5,7 +5,7 @@
     // A LIRE : Veuillez remplacer la ligne ci-dessous par votre controller (exple : connexion_controller)
 
     // Récupère la route dans l'URL (ex: login, home)
-    $route = $_GET['r'] ?? 'forgot_password'; // par défaut, "home"
+    $route = $_GET['r'] ?? 'login'; // par défaut, "home"
 
     // Définit le chemin vers le fichier de route
     $controllerFile = "../app/controllers/$route.php";
