@@ -58,7 +58,7 @@
         global $db;
 
         // Requête préparée pour récupérer tous les post-its d'un utilisateur
-        $sql = "SELECT * FROM postit WHERE id_user = ? AND flag_delete = 0";
+        $sql = "SELECT * FROM postit WHERE id_user = ? AND flag_delete = 0 ORDER BY date_modification DESC";
         $stmt = $db->prepare($sql);
         $stmt->execute([$id_user]);
 
@@ -76,7 +76,13 @@
         global $db;
 
         // Requête préparée pour récupérer tous les post-its partagés d'un utilisateur
-        $sql = "SELECT * FROM share WHERE id_user = ?";
+        //$sql = "SELECT * FROM share WHERE id_user = ? ORDER BY date_share DESC";
+
+        $sql = "SELECT * 
+            FROM postit 
+            WHERE id_postit IN (
+                SELECT id_postit FROM share WHERE id_user = ?
+            )";
         $stmt = $db->prepare($sql);
         $stmt->execute([$id_user]);
 
@@ -86,99 +92,293 @@
         // Retourner les résultats
         return $postits_share;
     }
-
-
-
-
-
-?>
-<?php
-
-    // ***************************************** Model pour la gestion des post-its**********************************************************
-
-    // Tableau des attributs du post-it
-    $attributs = [
-        'id_postit',
-        'id_user',
-        'title',
-        'content',
-        'flag_delete',
-        'date_create_postit',
-        'date_modification',
-        'date_delete_postit',   
-    ];
-
-    // Fonction pour créer un post-it
-    function createPostIt($title, $content, $id_user) 
+    
+    //fonction qui récupère un post-it en fonction de l'id
+    function getOnePostit($id_postit)
     {
         global $attributs;
         global $db;
 
-        // On vérifie si le titre exixte déjà dans la base de données
-        $sql = "SELECT * FROM postit WHERE id_user = ? AND title = ?";
+
+        $sql = "SELECT * FROM postit WHERE id_postit  = ?";
         $stmt = $db->prepare($sql);
-        $stmt->execute([$id_user, $title]);
-        $title_postit = $stmt->fetch();
-        // Si le titre existe déjà on ajoute un suffixe
-        if ($title_postit) 
+        $stmt->execute([$id_postit]);
+
+        // Récupérer tous les résultats
+        $one_postit = $stmt->fetch();
+
+        // Retourner les résultats
+        return $one_postit;
+    }
+
+    //function qui modifie un post-it
+    function updatePostItContent($id_postit, $new_content, $id_user)
+{
+    global $db;
+
+    // Vérification : nombre minimal/maximal de caractères
+    $minLength = 1;
+    $maxLength = 500;
+    $new_content = trim($new_content);
+
+    if (strlen($new_content) < $minLength || strlen($new_content) > $maxLength) {
+        return ['success' => false, 'error' => "Le contenu doit contenir entre $minLength et $maxLength caractères."];
+    }
+
+    // Récupère le post-it existant
+    $sql = "SELECT content FROM postit WHERE id_postit = ? AND id_user = ? AND flag_delete = 0";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$id_postit, $id_user]);
+    $postit = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$postit) {
+        return ['success' => false, 'error' => "Post-it introuvable ou non autorisé."];
+    }
+
+    // Vérifie si le contenu a changé
+    if ($postit['content'] === $new_content) {
+        return ['success' => false, 'error' => "Aucun changement détecté dans le contenu."];
+    }
+
+    // Mise à jour du contenu
+    $sql = "UPDATE postit SET content = ?, date_modification = NOW() WHERE id_postit = ? AND id_user = ?";
+    $stmt = $db->prepare($sql);
+    $success = $stmt->execute([$new_content, $id_postit, $id_user]);
+
+    return ['success' => $success];
+}
+
+
+
+
+    //fonction post-it archivé 
+    function getPostItArchived($id_user) 
+    {
+        global $attributs;
+        global $db;
+
+        // Requête préparée pour récupérer tous les post-its archivés d'un utilisateur
+        $sql = "SELECT * FROM postit WHERE id_user = ? AND flag_delete = 1 ORDER BY date_delete_postit DESC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_user]);
+
+        // Récupérer tous les résultats
+        $postits_archived = $stmt->fetchAll();
+
+        // Retourner les résultats
+        return $postits_archived;
+    }
+
+    //fonction qui permet d'archiver un post-it
+    function archivePostIt($id_postit) 
+    {
+        global $db;
+
+        // Requête préparée pour archiver un post-it
+        $sql = "UPDATE postit SET flag_delete = 1 , date_delete_postit = NOW() WHERE id_postit = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_postit]);
+
+        // Vérifier si la mise à jour a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de mise à jour
+            return 0;
+        }
+        else // Ajout dans la table historique
         {
-            //je rajoute un suffixe -copie
-            $title = $title."-copie";
+            $id_user = 1;
+            //On récupère les infos du postit
+            // Requête préparée pour récupérer tous les post-its d'un utilisateur
+            $sql = "SELECT * FROM postit WHERE id_postit = ? AND flag_delete = 1";
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$id_postit]);
+
+            // Récupérer tous les résultats
+            $postit = $stmt->fetch(PDO::FETCH_OBJ);
+
+            
+          
+            $title = $postit->title;
+            $content = $postit->content;
+            $date_create_postit = $postit->date_create_postit;
+            $date_delete_postit = $postit->date_delete_postit;
+
+
+            //requette preparé pour l'ajout dans la base de donnée 
+            $sql = "INSERT INTO historic (id_postit, title, content, date_create_postit, date_delete_postit) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $db->prepare($sql);
+
+            // Exécuter la requête avec les valeurs fournies
+            $stmt->execute([$id_postit, $title, $content, $date_create_postit, $date_delete_postit]);
+            
+            // Vérifier si l'insertion a réussi
+            if ($stmt->rowCount() == 0) {
+                // Gérer l'erreur d'insertion
+                return 0;
+            }
+        
+            // Récupérer l'ID du post-it créé
+            $id_postit = $db->lastInsertId();
+            // Retourner l'ID du post-it créé
+            return $id_postit;
+
+    
+        }
+        // Retourner 1 si la mise à jour a réussi
+        return 1;
+    }
+
+    //fonction pour supprimer un post-it définitivement
+    function deletePostIt($id_postit) 
+    {
+        global $db;
+
+        // Requête préparée pour supprimer définitivement un post-it
+        $sql = "DELETE FROM postit WHERE id_postit = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_postit]);
+
+        // Vérifier si la suppression a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de suppression
+            return 0;
         }
 
-        // requette preparé pour insérer un post-it dans la base de données
-        $sql = "INSERT INTO postit (title, content, id_user) VALUES (?, ?, ?)";
-        $stmt = $db->prepare($sql);
+        // Retourner 1 si la suppression a réussi
+        return 1;
+    }
 
-        // Exécuter la requête avec les valeurs fournies
-        $stmt->execute([$title, $content, $id_user]);
-        
+    //fonction pour restaurer le post-it
+    function restorePostIt($id_postit) 
+    {
+        global $db;
+
+        // Requête préparée pour restaurer un post-it
+        $sql = "UPDATE postit SET flag_delete = 0 , date_delete_postit = NULL WHERE id_postit = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_postit]);
+        // Vérifier si la mise à jour a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de mise à jour
+            return 0;
+        }
+        // Retourner 1 si la mise à jour a réussi
+        return 1;
+    }
+
+    // Fonction pour récupérer les utilisateurs
+    function getAllUsers($id_postit) 
+    {
+        global $db;
+
+        // Requête préparée pour récupérer tous les utilisateurs
+        $sql = "SELECT first_name, mail, id_user 
+            FROM user 
+            WHERE id_user NOT IN (
+                SELECT id_user FROM share WHERE id_postit = ?
+            )";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_postit]);
+
+        // Vérifier si la requête a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de récupération
+            return 0;
+        }
+
+        // Récupérer tous les résultats
+        $users = $stmt->fetchAll();
+
+        // Retourner les résultats
+        return $users;
+    }
+
+
+     // Fonction pour récupérer les utilisateurs 
+     function getAllUsersCreate($id_user) 
+     {
+         global $db;
+ 
+         // Requête préparée pour récupérer tous les utilisateurs
+         $sql = "SELECT * FROM user WHERE id_user <> ?";
+         $stmt = $db->prepare($sql);
+         $stmt->execute([$id_user]);
+ 
+         // Vérifier si la requête a réussi
+         if ($stmt->rowCount() == 0) {
+             // Gérer l'erreur de récupération
+             return 0;
+         }
+ 
+         // Récupérer tous les résultats
+         $users = $stmt->fetchAll(PDO::FETCH_ASSOC); //pour avoir un tableau associatif
+ 
+         // Retourner les résultats
+         return $users;
+     }
+
+    //fonction qui récupère les utilisateurs avec qui on a partagé le post-it
+    function getAllUsersShared($id_postit) 
+    {
+        global $db;
+
+        $sql = "SELECT s.id_user, s.flag_write_learn, u.first_name, u.mail 
+                FROM share s
+                JOIN user u ON s.id_user = u.id_user
+                WHERE s.id_postit = ?" ;
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_postit]);
+
+        // Vérifier si la requête a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de récupération
+            return 0;
+        }
+
+        return $stmt->fetchAll();
+    }
+
+    //fonction qui modifie le flag d'un user dans share
+    function addUserShare($id_user, $id_postit)
+    {
+        global $db;
+
+        $val = "vide";
+
+        // Requête préparée pour ajouter un utilisateur à un post-it
+        $sql = "INSERT INTO share (id_user, id_postit, content) VALUES (?, ?, ?)";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_user, $id_postit, $val]);
+
         // Vérifier si l'insertion a réussi
         if ($stmt->rowCount() == 0) {
             // Gérer l'erreur d'insertion
             return 0;
         }
-    
-        // Récupérer l'ID du post-it créé
-        $id_postit = $db->lastInsertId();
-        // Retourner l'ID du post-it créé
-        return $id_postit;
+
+        // Retourner 1 si l'insertion a réussi
+        return 1;
     }
 
-    // Fonction qui permet de récupérer tous les post-it d'un utilisateur
-    function getAllPostIt($id_user) 
+
+    //fonction qui retire un user du partage
+    function moveUserShare($id_user, $id_postit)
     {
-        global $attributs;
         global $db;
 
-        // Requête préparée pour récupérer tous les post-its d'un utilisateur
-        $sql = "SELECT * FROM postit WHERE id_user = ? AND flag_delete = 0";
+        //on suprimine l'utilisateur de la table share
+        $sql = "DELETE FROM share WHERE id_user = ? AND id_postit = ?";
         $stmt = $db->prepare($sql);
-        $stmt->execute([$id_user]);
+        $stmt->execute([$id_user, $id_postit]);
+        // Vérifier si la suppression a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de suppression
+            return 0;
+        }
 
-        // Récupérer tous les résultats
-        $postits = $stmt->fetchAll();
-
-        // Retourner les résultats
-        return $postits;
-    }
-
-    // Fonction qui permet de récupérer un post-it partagé
-    function getPostItShared($id_user) 
-    {
-        global $attributs;
-        global $db;
-
-        // Requête préparée pour récupérer tous les post-its partagés d'un utilisateur
-        $sql = "SELECT * FROM share WHERE id_user = ?";
-        $stmt = $db->prepare($sql);
-        $stmt->execute([$id_user]);
-
-        // Récupérer tous les résultats
-        $postits_share = $stmt->fetchAll();
-
-        // Retourner les résultats
-        return $postits_share;
+        // Retourner 1 si l'insertion a réussi
+        return 1;
     }
 
 
