@@ -10,9 +10,9 @@ $id_user = 1; // Pour les tests
 $postits_list = getAllPostIt($id_user);
 
 // On récupère un seul post-it dans postits_list dont l'id est dans l'url
+
 if (isset($_GET['id_postit'])) {
     $id_postit = $_GET['id_postit'];
-
     foreach ($postits_list as $postit) {
         if ($postit->id_postit == $id_postit) {
             $postit_one = $postit;

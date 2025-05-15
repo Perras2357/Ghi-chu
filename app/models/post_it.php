@@ -395,6 +395,39 @@
     return ['success' => $success];
 }
 
+function updateProfil($id_user, $first_name, $mail)
+{
+    global $db;
+
+    try {
+        $sql = "UPDATE user SET first_name = ?, mail = ? WHERE id_user = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$first_name, $mail, $id_user]);
+
+        return ['success' => true];
+    } catch (PDOException $e) {
+        return ['success' => false, 'error' => "Erreur : " . $e->getMessage()];
+    }
+}
+
+function getUserById($id_user) {
+    global $db;
+
+    $sql = "SELECT * FROM user WHERE id_user = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$id_user]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function getLastUpdateDate($id_user) {
+    global $db;
+    $sql = "SELECT MAX(date_modification) as last_update FROM postit WHERE id_user = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$id_user]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['last_update'] ?? '—';
+}
+
 
 
 
