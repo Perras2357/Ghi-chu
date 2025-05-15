@@ -13,10 +13,16 @@
     // On récupère tous les post-it de l'utilisateur
     $postits_list = getAllPostIt($id_user);
 
+
     //on récupère un seul post-it dans postits_list dont l'id est dans l'url
     if(isset($_GET['id_postit']))
     {
         $id_postit = $_GET['id_postit'];
+
+        //on récupère les utilisateurs qui partage ce post-it
+        $users_shared = getAllUsersShared($id_postit);
+        var_dump($users_shared);
+
         
         foreach($postits_list as $postit)
         {

@@ -253,8 +253,31 @@
         $stmt = $db->prepare($sql);
         $stmt->execute();
 
+        // Vérifier si la requête a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de récupération
+            return 0;
+        }
+
         // Récupérer tous les résultats
         $users = $stmt->fetchAll();
+
+        // Retourner les résultats
+        return $users;
+    }
+
+    //fonction qui récupère les utilisateurs avec qui on a partagé le post-it
+    function getAllUsersShared($id_postit) 
+    {
+        global $db;
+
+        $sql = "SELECT s.id_user, s.flag_write_learn, u.first_name, u.mail 
+                FROM share s
+                JOIN user u ON s.id_user = u.id_user
+                WHERE s.id_postit = ?";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_postit]);
 
         // Vérifier si la requête a réussi
         if ($stmt->rowCount() == 0) {
@@ -262,8 +285,7 @@
             return 0;
         }
 
-        // Retourner les résultats
-        return $users;
+        return $stmt->fetchAll();
     }
 
 
