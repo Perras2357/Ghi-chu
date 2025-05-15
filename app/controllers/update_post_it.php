@@ -36,7 +36,8 @@ if (!isset($postit_one)) {
 // 🔄 Traitement de la modification du post-it
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
     $new_content = $_POST['content'] ?? '';
-    $result = updatePostItContent($postit_one->id_postit, $new_content, $id_user);
+    $new_title = $_POST['title'] ?? '';
+    $result = updatePostItContent($postit_one->id_postit,$new_title, $new_content, $id_user);
 
     if ($result['success']) {
         // ✅ Redirection vers le menu principal après succès

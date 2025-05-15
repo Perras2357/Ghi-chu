@@ -88,7 +88,7 @@
     }
 
     //function qui modifie un post-it
-    function updatePostItContent($id_postit, $new_content, $id_user)
+    function updatePostItContent($id_postit,$new_title, $new_content, $id_user)
 {
     global $db;
 
@@ -117,10 +117,9 @@
     }
 
     // Mise à jour du contenu
-    $sql = "UPDATE postit SET content = ?, date_modification = NOW() WHERE id_postit = ? AND id_user = ?";
+    $sql = "UPDATE postit SET content = ?,title = ?,date_modification = NOW() WHERE id_postit = ? AND id_user = ?";
     $stmt = $db->prepare($sql);
-    $success = $stmt->execute([$new_content, $id_postit, $id_user]);
-
+    $success = $stmt->execute([$new_content,$new_title , $id_postit, $id_user]);
     return ['success' => $success];
 }
 

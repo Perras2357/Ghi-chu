@@ -7,7 +7,8 @@
                 <div class="col-md-8">
                     <div class="card shadow-sm mt-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0"><?= htmlspecialchars($postit_one->title) ?></h5>
+                            <label for="title" class="form-label">Titre du Post-It</label>
+                                    <textarea name="title" id="title" class="form-control" rows="6" required><?= htmlspecialchars($postit_one->title) ?></textarea>
                         </div>
                         <div class="card-body">
                             <!-- Formulaire de modification du contenu -->
