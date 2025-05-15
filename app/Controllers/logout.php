@@ -6,12 +6,12 @@
  * This is called when the user accesses the "logout" route.
  */
 
-session_start(); // Bắt đầu session (nếu chưa) để có thể hủy
-// Hủy tất cả dữ liệu phiên đăng nhập
+session_start();
+
 session_unset();
 session_destroy();
 
-// Chuyển hướng về trang đăng nhập sau khi đăng xuất
-header("Location: index.php?page=login");
+
+header("Location: index.php?r=login");
 exit;
 ?>

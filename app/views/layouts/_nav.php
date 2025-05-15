@@ -38,7 +38,7 @@
                 <li><a class="dropdown-item" href="#">Paramètres</a></li>
                 <li><a class="dropdown-item" href="#">Profil</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Déconnexion</a></li>
+                <li><a class="dropdown-item" href= "index.php?r=logout">Déconnexion</a></li>
             </ul>
         </div>
 

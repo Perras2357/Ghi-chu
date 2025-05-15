@@ -125,8 +125,8 @@ form {
 
 .right {
   flex: 1;
-  background: url('../images/postit.jpg') no-repeat center center;
-  background-size: cover;
+  /* background: url('../images/postit.jpg') no-repeat center center;
+  background-size: cover; */
 }
 
 @media (max-width: 768px) {

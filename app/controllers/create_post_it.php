@@ -7,7 +7,7 @@
 
 
     //On vérifie si le formulaire a été soumis
-    if (isset($_POST['submit_id'])) 
+    if (isset($_POST['submit_id']))
     {
         // On récupère les données du formulaire
         $title = $_POST['title_id'];

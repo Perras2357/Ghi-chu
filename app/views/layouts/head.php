@@ -13,12 +13,14 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> 
 
             <!-- css local -->
-            <link rel="stylesheet" href="css/nav_bar.css">
-            <link rel="stylesheet" href="css/home.css">
+            <link rel="stylesheet" href="/css/login.css">
+
+            <!-- <link rel="stylesheet" href="css/nav_bar.css">
+            <link rel="stylesheet" href="css/home.css"> -->
       </head>
 <body>
       <?php 
             global $base_url;
-            require_once "_nav.php" 
+            //require_once "_nav.php" 
       ?>
     

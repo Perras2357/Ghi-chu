@@ -1,6 +1,5 @@
 <?php
-    // Inclure le head si nécessaire
-    // require_once __DIR__.'/layouts/head.php';
+    require_once __DIR__.'/layouts/head.php';
 ?>
 
 <link rel="stylesheet" href="css/inscription.css">
@@ -51,8 +50,10 @@
     </div>
 </div>
 
+<!-- Ajout du fichier javascriipt -->
+<script src="js/inscription.js"></script>
+
 <?php
     require_once __DIR__.'/layouts/footer.php';
 ?>
-<!-- Ajout du fichier javascriipt -->
-<script src="js/inscription.js"></script>
+
