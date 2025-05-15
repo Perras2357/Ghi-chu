@@ -16,13 +16,13 @@
         <!-- div menu -->
         <ul class="nav nav-pills mb-auto text-center">
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="bi bi-collection-fill">My Post-Its</i>    
+                <a href="index.php?r=archive" class="nav-link">
+                    <i class="bi bi-trash3-fill">Archive</i>    
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="bi bi-share-fill">Post-its shared</i>                    
+                    <i class="bi bi-git">Versionning-post-it</i>                    
                 </a>
             </li>
         </ul>
