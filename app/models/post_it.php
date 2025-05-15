@@ -270,6 +270,30 @@
         return $users;
     }
 
+
+     // Fonction pour récupérer les utilisateurs 
+     function getAllUsersCreate($id_user) 
+     {
+         global $db;
+ 
+         // Requête préparée pour récupérer tous les utilisateurs
+         $sql = "SELECT * FROM user WHERE id_user <> ?";
+         $stmt = $db->prepare($sql);
+         $stmt->execute([$id_user]);
+ 
+         // Vérifier si la requête a réussi
+         if ($stmt->rowCount() == 0) {
+             // Gérer l'erreur de récupération
+             return 0;
+         }
+ 
+         // Récupérer tous les résultats
+         $users = $stmt->fetchAll(PDO::FETCH_ASSOC); //pour avoir un tableau associatif
+ 
+         // Retourner les résultats
+         return $users;
+     }
+
     //fonction qui récupère les utilisateurs avec qui on a partagé le post-it
     function getAllUsersShared($id_postit) 
     {
@@ -291,24 +315,6 @@
 
         return $stmt->fetchAll();
     }
-
-    // //fonction qui modifie le flag d'un user dans share
-    // function setFlagWrite($id_user, $id_postit, $val)
-    // {
-    //     global $db;
-
-    //      // Requête préparée pour restaurer un post-it
-    //      $sql = "UPDATE share SET flag_write_learn = $val WHERE id_postit = ? AND id_user = ?";
-    //      $stmt = $db->prepare($sql);
-    //      $stmt->execute([$id_postit, $id_user]);
-    //      // Vérifier si la mise à jour a réussi
-    //      if ($stmt->rowCount() == 0) {
-    //          // Gérer l'erreur de mise à jour
-    //          return 0;
-    //      }
-    //      // Retourner 1 si la mise à jour a réussi
-    //      return 1;
-    // }
 
     //fonction qui modifie le flag d'un user dans share
     function addUserShare($id_user, $id_postit)

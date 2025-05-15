@@ -26,8 +26,27 @@
                             </div>
                             <div class="error-message" id="errorContent"></div>
 
+                            <!-- Checklist -->
+                            <label class="form-label">Share with other users:</label>
+                            <div class="list-group">
+                                <?php foreach ($users_list as $user): ?>
+                                    <label class="list-group-item">
+                                        <input 
+                                            type="checkbox" 
+                                            name="shared_users[]" 
+                                            value="<?= $user['id_user'] ?>" 
+                                            class="form-check-input me-1">
+                                        <?= $user['first_name'] ?> (<?= $user['mail'] ?>)
+                                    </label>
+                                <?php endforeach; ?>
+                            </div>
+
+
                             
-                            <!-- Partie couleur -->
+
+
+                            
+                             <!-- Partie couleur -->
                             <div class="col-md-4 offset-md-4 mb-3 form-floating">
                                 <button class="btn btn-lg btn-primary" type="submit" name="submit_id" id="submit_id">Create</button>
                             </div>
