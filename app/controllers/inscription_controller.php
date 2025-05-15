@@ -3,8 +3,19 @@
 $errors = [];
 $message = '';
 
-// Vérification si le formulaire est soumis
-if (isset($_POST['inscription'])) {
+//var_dump($_POST);
+
+if ((isset($_POST['inscription']))) {
+    // Récupérer les données du formulaire
+
+    var_dump($_POST['password']);
+
+    $prenom = $_POST['prenom'];
+    $nom = $_POST['nom']; 
+    $naissance = $_POST['naissance'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $password_confirm = $_POST['password_confirm'];
 
 //pour debug
 //echo '<pre>POST = '; var_dump($_POST); echo '</pre>';
@@ -76,17 +87,17 @@ if (isset($_POST['inscription'])) {
         $stmt->bindParam(':email',            $email,            PDO::PARAM_STR);
         $stmt->bindParam(':password',         $hashed_password,  PDO::PARAM_STR);
 
+
         if ($stmt->execute()) {
-            // Succès : rediriger vers la connexion
-            header("Location: index/?r=login");
-            exit();
+
+            $message = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
+            header("Location: index/?r=home"); // Rediriger vers la page de connexion
         } else {
             $message = "Erreur lors de l'inscription. Veuillez réessayer.";
+            //header("Location: index/?r=login.php"); // Rediriger vers la page de connexion
         }
     }
 }
 
-//pour debug
-//echo '<pre>'; var_dump($errors); echo '</pre>';
-// Charger la vue
-require_once '../app/views/inscription_view.php';
+require_once '../app/views/inscription_view.php'; // Charger la vue
+?>
