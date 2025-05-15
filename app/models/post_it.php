@@ -76,7 +76,13 @@
         global $db;
 
         // Requête préparée pour récupérer tous les post-its partagés d'un utilisateur
-        $sql = "SELECT * FROM share WHERE id_user = ? ORDER BY date_share DESC";
+        //$sql = "SELECT * FROM share WHERE id_user = ? ORDER BY date_share DESC";
+
+        $sql = "SELECT * 
+            FROM postit 
+            WHERE id_postit IN (
+                SELECT id_postit FROM share WHERE id_user = ?
+            )";
         $stmt = $db->prepare($sql);
         $stmt->execute([$id_user]);
 
@@ -85,6 +91,24 @@
 
         // Retourner les résultats
         return $postits_share;
+    }
+    
+    //fonction qui récupère un post-it en fonction de l'id
+    function getOnePostit($id_postit)
+    {
+        global $attributs;
+        global $db;
+
+
+        $sql = "SELECT * FROM postit WHERE id_postit  = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_postit]);
+
+        // Récupérer tous les résultats
+        $one_postit = $stmt->fetch();
+
+        // Retourner les résultats
+        return $one_postit;
     }
 
     //function qui modifie un post-it
@@ -178,7 +202,6 @@
             $content = $postit->content;
             $date_create_postit = $postit->date_create_postit;
             $date_delete_postit = $postit->date_delete_postit;
-            var_dump($title);
 
 
             //requette preparé pour l'ajout dans la base de donnée 

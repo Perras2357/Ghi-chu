@@ -14,14 +14,14 @@
 
                             <!-- Partie titre -->
                             <div class="col-md-6 offset-md-3 mb-3 form-floating">
-                                <input type="text" class="form-control" name="title_id" id="title_id" placeholder="Title" maxlength="15" required>
+                                <input type="text" class="form-control" name="title_id" id="title_id" placeholder="Title" maxlength="150" required>
                                 <label for="title_id">Title</label>
                             </div>
                             <div class="error-message" id="errorTitle"></div>
 
                             <!-- Partie Contenue -->
                             <div class="col-md-8 offset-md-2 mb-3 form-floating">
-                                <textarea class="form-control" name="content_id" id="content_id" placeholder="content" maxlength="150" required></textarea>
+                                <textarea class="form-control" name="content_id" id="content_id" placeholder="content" maxlength="650" required></textarea>
                                 <label for="content_id">Content  of post-it...</label>
                             </div>
                             <div class="error-message" id="errorContent"></div>

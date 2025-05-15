@@ -18,12 +18,8 @@
 
         // On récupère les post-it partagés
         $postits_shared_home = getPostItShared($id_user);
-        if(!empty($postits_shared_home))
-        {
-            
-            // on récupère juste les deux premiers post-it
-            $postits_shared_home = array_slice($postits_shared_home, 0, 2);
-        }
+        
+        
     }
     
 

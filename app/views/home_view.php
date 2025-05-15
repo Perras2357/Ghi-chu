@@ -59,7 +59,6 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                            </a>
                                         <?php endforeach; ?>
 
                                     </tbody>
@@ -91,15 +90,21 @@
                                 </thead>
                                 <tbody>
 
-                                    <?php $i = 1; ?>  <!--pour le numéro de ligne -->
-                                    <?php foreach ($postits_shared_home as $postit_shared): ?>
-                                        <tr>
-                                            <th scope="row"> <?=$i++ ?> </th> <!-- post incrementation -->
-                                            <td><?= $postit_shared->title ?></td>
-                                            <td><?= $postit_shared->date_create_postit ?></td>
-                                            <td><?= $postit_shared->date_modification ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                                    <?php if(!empty($postits_shared_home)): ?>
+
+                                        <?php $i = 1; ?>  <!--pour le numéro de ligne -->
+                                        <?php foreach ($postits_shared_home as $postit_shared): ?>
+                                            <tr>
+                                                <th scope="row"> <?=$i++ ?> </th> <!-- post incrementation -->
+                                                <td>
+                                                    <a class="text-black text-decoration-none" href="index.php?r=one_post_it_share&id_postit=<?= $postit->id_postit ?>">
+                                                        <?= $postit_shared->title ?></td>
+                                                    </a>
+                                                <td><?= $postit_shared->date_create_postit ?></td>
+                                                <td><?= $postit_shared->date_modification ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
 
                                 </tbody>
                             </table>

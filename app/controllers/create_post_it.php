@@ -27,12 +27,12 @@
         
 
         // On vérifie si le titre est vide
-        if (empty($title) || strlen($title) < 3 || strlen($title) > 15)
+        if (empty($title) || strlen($title) < 3 || strlen($title) > 150)
         {
             $error = "Le titre ne peut pas être envoyé à cause du nombre de caractère";
             exit;
         } 
-       if (empty($content) && strlen($content) < 3 || strlen($content) > 150)
+       if (empty($content) && strlen($content) < 3 || strlen($content) > 600)
         {
             $error = "Le contenu ne peut pas être envoyé à cause du nombre de caractère";
             exit;
