@@ -6,8 +6,15 @@
 //
 
     //on récupère l'id de la session après avoir vérifié que l'utilisateur est connecté
-    $id_user = 1;
-
+    if($_SESSION['user_id'])
+    {
+        $id_user = $_SESSION['user_id'];
+    }
+    else
+    {
+        header('Location: index.php?r=login');
+        exit();
+    }
     //on récupère les utilisateurs pour les ajoouter dans une liste
     $users_list = getAllUsersCreate($id_user); 
 

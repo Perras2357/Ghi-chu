@@ -4,7 +4,15 @@
     require '../app/models/post_it.php'; // Inclure le modèle pour la gestion des post-its
     //require '../app/models/user.php'; // Inclure le modèle pour la gestion des utilisateurs
 //
-
+    if($_SESSION['user_id'])
+    {
+        $id_user = $_SESSION['user_id'];
+    }
+    else
+    {
+        header('Location: index.php?r=login');
+        exit();
+    }
 
     //On vérifie si le formulaire a été soumis
     if (isset($_POST['submit_id'])) 

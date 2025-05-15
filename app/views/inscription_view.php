@@ -1,61 +1,105 @@
 <?php
-    // Inclure le head si nécessaire
-    // require_once __DIR__.'/layouts/head.php';
+// require_once __DIR__ . '/layouts/head.php';
 ?>
-
 <link rel="stylesheet" href="css/inscription.css">
+
 <div class="form-container">
-    <!-- Formulaire -->
-    <div class="form-box">
-        <img src="images/logo_fond_blanc.png" class="logo" alt="Logo Ghi Chu">
-        <form method="POST" action="/?r=inscription_controller">
-            <h2>Welcome</h2>
-            <p>Please enter your details</p>
+  <div class="form-box">
+    <img src="images/logo_fond_blanc.png" class="logo" alt="Logo Ghi Chu">
 
-            <!-- Champ prénom -->
-            <input type="text" name="prenom" placeholder="First Name" required>
-            <span class="error-message"><?php echo isset($errors['prenom']) ? htmlspecialchars($errors['prenom']) : ''; ?></span> <!-- Message d'erreur -->
+    <?php $hasError = !empty($errors) ? ' error-all' : ''; ?>
+    <form id="inscriptionForm" class="<?= $hasError ?>" method="POST" novalidate>
+      <h2>Welcome</h2>
+      <p>Please enter your details</p>
 
-            <!-- Champ nom -->
-            <input type="text" name="nom" placeholder="Last Name" required>
-            <span class="error-message"><?php echo isset($errors['nom']) ? htmlspecialchars($errors['nom']) : ''; ?></span> <!-- Message d'erreur -->
+      <!-- Prénom -->
+      <div class="field-group<?= isset($errors['prenom']) ? ' error' : '' ?>">
+        <input
+          type="text"
+          name="prenom"
+          id="prenom"
+          placeholder="First Name"
+          value="<?= htmlspecialchars($_POST['prenom'] ?? '') ?>"
+          required
+        >
+        <span class="error-message"><?= htmlspecialchars($errors['prenom'] ?? '') ?></span>
+      </div>
 
-            <!-- Champ date de naissance -->
-            <input type="date" name="naissance" placeholder="Date of birth" required>
-            <span class="error-message"><?php echo isset($errors['naissance']) ? htmlspecialchars($errors['naissance']) : ''; ?></span> <!-- Message d'erreur -->
+      <!-- Nom -->
+      <div class="field-group<?= isset($errors['nom']) ? ' error' : '' ?>">
+        <input
+          type="text"
+          name="nom"
+          id="nom"
+          placeholder="Last Name"
+          value="<?= htmlspecialchars($_POST['nom'] ?? '') ?>"
+          required
+        >
+        <span class="error-message"><?= htmlspecialchars($errors['nom'] ?? '') ?></span>
+      </div>
 
-            <!-- Champ email -->
-            <input type="email" name="email" placeholder="Email address" required>
-            <span class="error-message"><?php echo isset($errors['email']) ? htmlspecialchars($errors['email']) : ''; ?></span> <!-- Message d'erreur -->
+      <!-- Date de naissance (AAAA/MM/JJ) -->
+      <div class="field-group<?= isset($errors['naissance']) ? ' error' : '' ?>">
+        <input
+          type="text"
+          name="naissance"
+          id="naissance"
+          placeholder="AAAA/MM/JJ"
+          value="<?= htmlspecialchars($_POST['naissance'] ?? '') ?>"
+          required
+        >
+        <span class="error-message"><?= htmlspecialchars($errors['naissance'] ?? '') ?></span>
+      </div>
 
-            <!-- Champ mot de passe -->
-            <input type="password" name="password" placeholder="6 characters minimum" required>
-            <span class="error-message"><?php echo isset($errors['password']) ? htmlspecialchars($errors['password']) : ''; ?></span> <!-- Message d'erreur -->
-            
-            <!-- Champ mot de confirmation de mot de passe  -->
-            <input type="password" name="password_confirm" placeholder="6 characters minimum" required>
-            <span class="error-message"><?php echo isset($errors['password_confirm']) ? htmlspecialchars($errors['password_confirm']) : ''; ?></span> <!-- Message d'erreur -->
-            
-            <button type="submit">Sign up</button>
+      <!-- Email -->
+      <div class="field-group<?= isset($errors['email']) ? ' error' : '' ?>">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email address"
+          value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
+          required
+        >
+        <span class="error-message"><?= htmlspecialchars($errors['email'] ?? '') ?></span>
+      </div>
 
-      <!-- Message d'erreur général ou succès -->
+      <!-- Mot de passe -->
+      <div class="field-group<?= isset($errors['password']) ? ' error' : '' ?>">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="6 characters minimum"
+          required
+        >
+        <span class="error-message"><?= htmlspecialchars($errors['password'] ?? '') ?></span>
+      </div>
+
+      <!-- Confirmation mot de passe -->
+      <div class="field-group<?= isset($errors['password_confirm']) ? ' error' : '' ?>">
+        <input
+          type="password"
+          name="password_confirm"
+          id="password_confirm"
+          placeholder="6 characters minimum"
+          required
+        >
+        <span class="error-message"><?= htmlspecialchars($errors['password_confirm'] ?? '') ?></span>
+      </div>
+
+      <button type="submit" name="inscription" id="inscription">Sign up</button>
       <p class="message"><?= htmlspecialchars($message) ?></p>
-
-      <p>Already have an account? <a href="index.php?r=login">Sign in</a></p>
-      <p>Already have an account? <a href="index.php?r=login">Sign in</a></p>
+      <p>Already have an account? <a href="login.php">Sign in</a></p>
     </form>
   </div>
-  
-  <!-- Image -->
+
   <div class="image-part">
     <img src="images/postit.jpg" alt="Inscription Image" class="inscription-image">
   </div>
 </div>
 
-<!-- Ajout du fichier javascriipt -->
 <script src="js/inscription.js"></script>
-
 <?php
-    require_once __DIR__.'/layouts/footer.php';
+// require_once __DIR__ . '/layouts/footer.php';
 ?>
-
