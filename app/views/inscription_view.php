@@ -42,6 +42,7 @@
       <p class="message"><?= htmlspecialchars($message) ?></p>
 
       <p>Already have an account? <a href="index.php?r=login">Sign in</a></p>
+      <p>Already have an account? <a href="index.php?r=login">Sign in</a></p>
     </form>
   </div>
   
@@ -51,9 +52,10 @@
   </div>
 </div>
 
-<!-- Ajout du fichier javascript -->
+<!-- Ajout du fichier javascriipt -->
 <script src="js/inscription.js"></script>
 
 <?php
     require_once __DIR__.'/layouts/footer.php';
 ?>
+
