@@ -55,7 +55,7 @@
                                                 <td><?= $postit->date_create_postit ?></td>
                                                 <td><?= $postit->date_modification ?></td>
                                                 <td>
-                                                    <a href="index.php?r=update_post_it&id_postit=<?= $postit->id_user ?>" class="nav-link">
+                                                    <a href="index.php?r=update_post_it&id_postit=<?= $postit->id_postit ?>" class="nav-link">
                                                         <i class="bi bi-pencil-square">Modifier</i>    
                                                     </a>
                                                 </td>

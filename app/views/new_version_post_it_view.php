@@ -1,4 +1,8 @@
-<?php require_once __DIR__.'/layouts/head.php'; ?>
+<?php 
+require_once __DIR__.'/layouts/head.php'; 
+require_once __DIR__.'/layouts/_nav.php' ;
+
+?>
 <link rel="stylesheet" href="css/new_version.css">
 
 <div class="main-content">
@@ -40,4 +44,6 @@
 </div>
 
 <script src="js/create_post_it.js"></script>
+<<<<<<< HEAD
 <?php require_once __DIR__.'/layouts/footer.php'; ?>
+

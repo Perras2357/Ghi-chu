@@ -36,9 +36,9 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser">
                 <li><a class="dropdown-item" href="#">Paramètres</a></li>
-                <li><a class="dropdown-item" href="#">Profil</a></li>
+                <li><a class="dropdown-item" href="index.php?r=profil">Profil</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Déconnexion</a></li>
+                <li><a class="dropdown-item" href="index.php?r=logout">Déconnexion</a></li>
             </ul>
         </div>
 

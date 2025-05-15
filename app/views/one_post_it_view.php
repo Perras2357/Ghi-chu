@@ -22,14 +22,8 @@
                                         aria-expanded="false"
                                         style="cursor: pointer;"></i>
                                         <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="#">Modifier</a></li>
-                                            <li>
-                                                <button class="btn dropdown-item" type="button" id="collapseForm">
-                                                    <i class="bi bi-share"></i>
-                                                    Partager
-                                                </button>
-                                            </li>
-                                            <li><a class="dropdown-item" href="#">Supprimer</a></li>
+                                            <li><a class="dropdown-item" href="index.php?r=update_post_it&id_postit=<?= $postit->id_postit ?>">Modifier</a></li>
+                                            <li><a class="dropdown-item" href="index.php?r=new_version_post_it&id_postit=<?= $postit->id_postit ?>">New version</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -132,27 +126,18 @@
                                             <?php endforeach; ?>
                                         <?php endif; ?>
 
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>>
 
-                        
-               
-                
-
-
-
-
-
 
                     </div>
                 </div>
             </div>
         </div>
-
-                           
 
 
     </div>

@@ -66,7 +66,7 @@
         // On récupère l'id du post-it à supprimer
         $id_postit = $_POST['delete'];
         // On supprime le post-it
-        $result = archivePostIt($id_postit);
+        $result = archivePostIt($id_postit,$id_user);
         if($result == 0)
         {
             $error = "Erreur lors de la suppression du post-it";

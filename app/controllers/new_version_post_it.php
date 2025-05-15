@@ -4,8 +4,15 @@
 require '../app/models/post_it.php';
 
 // $id_user = $_SESSION['user']['id_user'];
-$id_user = 1; // Pour test
-
+if($_SESSION['user_id'])
+    {
+        $id_user = $_SESSION['user_id'];
+    }
+    else
+    {
+        header('Location: index.php?r=login');
+        exit();
+    }
 // Récupération de tous les post-its de l'utilisateur
 $postits_list = getAllPostIt($id_user);
 
@@ -50,3 +57,4 @@ if (isset($_POST['create_version'])) {
 }
 
 require '../app/views/new_version_post_it_view.php';
+
