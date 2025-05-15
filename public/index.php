@@ -13,8 +13,8 @@
     // Redirige vers r=home si aucun paramètre 'r' dans l'URL
     if (!isset($_GET['r'])) 
     {
+
         header('Location: index.php?r=login');
-        exit;
     }
 
     // Appel de la page de route, celle qui gère toutes les redirections

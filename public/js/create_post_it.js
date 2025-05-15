@@ -1,75 +1,110 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector("#form");
-    const title = document.querySelector("#title_id");
-    const content = document.querySelector("#content_id");
-    const errorTitle = document.querySelector("#errorTitle");
-    const errorContent = document.querySelector("#errorContent");
-    const errorForm = document.querySelector("#errorForm");
-    const submitBtn = document.querySelector("#submit_id");
+document.addEventListener('DOMContentLoaded', function () {
+    
 
-    // Fonction de validation globale
-    function validateForm() {
+
+    // DATEPICKER → hidden au format AAAA/MM/JJ
+    const picker = document.getElementById('naissance_picker');
+    const hidden = document.getElementById('naissance');
+    picker.addEventListener('change', e => {
+        const [y, m, d] = e.target.value.split('-');  // YYYY-MM-DD
+        hidden.value = (y && m && d) ? `${y}/${m}/${d}` : '';
+    });
+    
+
+    //Récupération du formulaire et de ses inputs
+
+    const form = document.getElementsById('inscritionForm');
+    const inputs = form.querySelectorAll('input');
+    
+    // Fonction de validation
+    function validateInput(input) {
         let isValid = true;
+        let errorMessage = '';
 
-        if (title.value.length < 3 || title.value.length > 15) {
+        // Validation du mot de passe (doit contenir au moins 6 caractères)
+        if (input.name === 'password' && input.value.length < 6) {
             isValid = false;
+            errorMessage = 'Le mot de passe doit comporter au moins 6 caractères.';
         }
 
-        if (content.value.length < 3 || content.value.length > 100) {
+        // Validation du mot de passe (doit contenir au moins 6 caractères)
+        if (input.name === 'password_confirm' && input.value.length < 6) {
             isValid = false;
+            errorMessage = 'Les 2 mots de passe ne correspondent pas';
+        }
+        
+
+      // Validation de l'email (pattern de base)
+        if (input.name === 'email') {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(input.value.trim())) {
+            isValid = false;
+            errorMessage = 'Adresse email invalide';
+        }
         }
 
-        submitBtn.disabled = !isValid;
+
+
+        // Validation de la date de naissance (format AAAA/MM/JJ)
+
+        if (input.name === 'naissance') {
+            
+        // AAAA/MM/JJ : année 0000–9999, mois 01–12, jour 01–31
+        const datePattern = /^[0-9]{4}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/;
+        if (!datePattern.test(input.value.trim())) {
+            isValid = false;
+            errorMessage = 'La date de naissance doit être au format AAAA/MM/JJ.';
+        }
+        }
+
+        }
+        // Si le champ est invalide, applique la classe 'invalid' et montre le message d'erreur
+        if (!isValid) {
+
+            input.classList.add('invalid');
+            const errorElement = input.nextElementSibling; // Le message d'erreur juste après l'input
+            if (errorElement && errorElement.classList.contains('error-message')) {
+
+                errorElement.textContent = errorMessage; // Affiche le message d'erreur
+            }
+
+        } else {
+
+            input.classList.remove('invalid');
+            const errorElement = input.nextElementSibling;
+            if (errorElement && errorElement.classList.contains('error-message')) {
+                errorElement.textContent = ''; // Retire le message d'erreur
+            }
+        }
+
+        return isValid;
     }
 
-    // Contrôle en temps réel pour le titre
-    title.addEventListener("input", function () {
-        if (title.value.length < 3 || title.value.length > 15) {
-            errorTitle.textContent = "Le titre doit contenir entre 3 et 15 caractères";
-            errorTitle.style.color = "red";
-        } else {
-            errorTitle.textContent = "";
-        }
-        validateForm(); // Appelle la fonction après chaque changement
+    // pour la validation en temps réel
+    inputs.forEach(input => {
+        input.addEventListener('blur', () => {
+            validateInput(input); // Valider lorsqu'on quitte le champ
+        });
+
+        input.addEventListener('input', () => {
+            if (input.classList.contains('invalid')) {
+                validateInput(input); // Réévaluer si l'utilisateur continue de saisir
+            }
+        });
     });
 
-    // Contrôle en temps réel pour le contenu
-    content.addEventListener("input", function () {
-        if (content.value.length < 3 || content.value.length > 100) {
-            errorContent.textContent = "Le contenu doit contenir entre 3 et 100 caractères";
-            errorContent.style.color = "red";
-        } else {
-            errorContent.textContent = "";
-        }
-        validateForm();
-    });
+    // Validation de tout le formulaire lors de la soumission
+    form.addEventListener('submit', function (event) {
+        let isFormValid = true;
 
-    // Vérification finale avant envoi
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        let Valider = true;
-        errorForm.textContent = "";
+        inputs.forEach(input => {
+            if (!validateInput(input)) {
+                isFormValid = false;
+            }
+        });
 
-        if (title.value.length < 3 || title.value.length > 15) {
-            errorTitle.textContent = "Le titre doit contenir entre 3 et 15 caractères";
-            errorTitle.style.color = "red";
-            Valider = false;
-        }
-
-        if (content.value.length < 3 || content.value.length > 100) {
-            errorContent.textContent = "Le contenu doit contenir entre 3 et 100 caractères";
-            errorContent.style.color = "red";
-            Valider = false;
-        }
-
-        if (Valider) {
-            form.submit();
-        } else {
-            errorForm.textContent = "Corriger les erreurs avant l'envoi du formulaire";
-            errorForm.style.color = "red";
+        if (!isFormValid) {
+            event.preventDefault(); // Empêche l'envoi du formulaire si des erreurs existent
         }
     });
-
-    // Vérification initiale au chargement
-    validateForm();
 });

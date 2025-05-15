@@ -1,10 +1,4 @@
 <?php
-<<<<<<< HEAD
-
-    require '../app/views/home_view.php';
-
-
-=======
 // ***************************************** Controller pour la page d'accueil**********************************************************
 //
     require '../app/models/post_it.php'; // Inclure le modèle pour la gestion des post-its
@@ -39,5 +33,4 @@
 
 
     require '../app/views/home_view.php';
->>>>>>> feature/connexion
 ?>
