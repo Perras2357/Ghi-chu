@@ -26,6 +26,7 @@
                                                 <li><a class="dropdown-item" href="#">Modifier</a></li>
                                                 <li><a class="dropdown-item" href="index.php?r=shared&id_postit=<?= $postit->id_postit ?>">Partager</a></li>
                                                 <li><a class="dropdown-item" href="index.php?r=one_post_it&id_postit=<?= $postit->id_postit ?>">view more</a></li>
+                                                <li><a class="dropdown-item" href="index.php?r=new_version_post_it&id_postit=<?= $postit->id_postit ?>">New version</a></li>
                                             </ul>
                                         </div>
                                     </div>
