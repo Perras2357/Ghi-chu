@@ -249,7 +249,7 @@
         global $db;
 
         // Requête préparée pour récupérer tous les utilisateurs
-        $sql = "SELECT first_nom, mail, id_user FROM user";
+        $sql = "SELECT first_name, mail, id_user FROM user";
         $stmt = $db->prepare($sql);
         $stmt->execute();
 
