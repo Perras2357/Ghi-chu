@@ -1,6 +1,6 @@
 <?php
     // Inclure le head si nécessaire
-    //require_once __DIR__.'/layouts/head.php';
+    // require_once __DIR__.'/layouts/head.php';
 ?>
 
 <link rel="stylesheet" href="css/inscription.css">
@@ -50,7 +50,8 @@
     <img src="images/postit.jpg" alt="Inscription Image" class="inscription-image">
   </div>
 </div>
-<!-- Ajout du fichier javascriipt -->
+
+<!-- Ajout du fichier javascript -->
 <script src="js/inscription.js"></script>
 
 <?php
