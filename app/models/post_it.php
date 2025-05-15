@@ -205,6 +205,67 @@
         return 1;
     }
 
+    //fonction pour supprimer un post-it définitivement
+    function deletePostIt($id_postit) 
+    {
+        global $db;
+
+        // Requête préparée pour supprimer définitivement un post-it
+        $sql = "DELETE FROM postit WHERE id_postit = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_postit]);
+
+        // Vérifier si la suppression a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de suppression
+            return 0;
+        }
+
+        // Retourner 1 si la suppression a réussi
+        return 1;
+    }
+
+    //fonction pour restaurer le post-it
+    function restorePostIt($id_postit) 
+    {
+        global $db;
+
+        // Requête préparée pour restaurer un post-it
+        $sql = "UPDATE postit SET flag_delete = 0 , date_delete_postit = NULL WHERE id_postit = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_postit]);
+        // Vérifier si la mise à jour a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de mise à jour
+            return 0;
+        }
+        // Retourner 1 si la mise à jour a réussi
+        return 1;
+    }
+
+    // Fonction pour récupérer les utilisateurs
+    function getAllUsers() 
+    {
+        global $db;
+
+        // Requête préparée pour récupérer tous les utilisateurs
+        $sql = "SELECT first_nom, mail, id_user FROM user";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+
+        // Récupérer tous les résultats
+        $users = $stmt->fetchAll();
+
+        // Vérifier si la requête a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de récupération
+            return 0;
+        }
+
+        // Retourner les résultats
+        return $users;
+    }
+
 
 
 
