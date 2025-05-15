@@ -244,14 +244,18 @@
     }
 
     // Fonction pour récupérer les utilisateurs
-    function getAllUsers() 
+    function getAllUsers($id_postit) 
     {
         global $db;
 
         // Requête préparée pour récupérer tous les utilisateurs
-        $sql = "SELECT first_name, mail, id_user FROM user";
+        $sql = "SELECT first_name, mail, id_user 
+            FROM user 
+            WHERE id_user NOT IN (
+                SELECT id_user FROM share WHERE id_postit = ?
+            )";
         $stmt = $db->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([$id_postit]);
 
         // Vérifier si la requête a réussi
         if ($stmt->rowCount() == 0) {
@@ -274,7 +278,7 @@
         $sql = "SELECT s.id_user, s.flag_write_learn, u.first_name, u.mail 
                 FROM share s
                 JOIN user u ON s.id_user = u.id_user
-                WHERE s.id_postit = ?";
+                WHERE s.id_postit = ?" ;
 
         $stmt = $db->prepare($sql);
         $stmt->execute([$id_postit]);
@@ -286,6 +290,66 @@
         }
 
         return $stmt->fetchAll();
+    }
+
+    // //fonction qui modifie le flag d'un user dans share
+    // function setFlagWrite($id_user, $id_postit, $val)
+    // {
+    //     global $db;
+
+    //      // Requête préparée pour restaurer un post-it
+    //      $sql = "UPDATE share SET flag_write_learn = $val WHERE id_postit = ? AND id_user = ?";
+    //      $stmt = $db->prepare($sql);
+    //      $stmt->execute([$id_postit, $id_user]);
+    //      // Vérifier si la mise à jour a réussi
+    //      if ($stmt->rowCount() == 0) {
+    //          // Gérer l'erreur de mise à jour
+    //          return 0;
+    //      }
+    //      // Retourner 1 si la mise à jour a réussi
+    //      return 1;
+    // }
+
+    //fonction qui modifie le flag d'un user dans share
+    function addUserShare($id_user, $id_postit)
+    {
+        global $db;
+
+        $val = "vide";
+
+        // Requête préparée pour ajouter un utilisateur à un post-it
+        $sql = "INSERT INTO share (id_user, id_postit, content) VALUES (?, ?, ?)";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_user, $id_postit, $val]);
+
+        // Vérifier si l'insertion a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur d'insertion
+            return 0;
+        }
+
+        // Retourner 1 si l'insertion a réussi
+        return 1;
+    }
+
+
+    //fonction qui retire un user du partage
+    function moveUserShare($id_user, $id_postit)
+    {
+        global $db;
+
+        //on suprimine l'utilisateur de la table share
+        $sql = "DELETE FROM share WHERE id_user = ? AND id_postit = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id_user, $id_postit]);
+        // Vérifier si la suppression a réussi
+        if ($stmt->rowCount() == 0) {
+            // Gérer l'erreur de suppression
+            return 0;
+        }
+
+        // Retourner 1 si l'insertion a réussi
+        return 1;
     }
 
 

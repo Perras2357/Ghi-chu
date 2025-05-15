@@ -80,7 +80,8 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Titre</th>
                                         <th scope="col">Date-create</th>
-                                        <th scope="col">Edit</th>
+                                        <th scope="col">Date Edit</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,6 +93,7 @@
                                             <td><?= $postit_shared->title ?></td>
                                             <td><?= $postit_shared->date_create_postit ?></td>
                                             <td><?= $postit_shared->date_modification ?></td>
+                                            
                                         </tr>
                                     <?php endforeach; ?>
 

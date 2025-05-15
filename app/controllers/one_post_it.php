@@ -21,9 +21,15 @@
 
         //on récupère les utilisateurs qui partage ce post-it
         $users_shared = getAllUsersShared($id_postit);
-        var_dump($users_shared);
+
+        //tableau avec les id_user pour comparer
+        //$shared_id_user = array_column($users_shared, 'id_user');
+
+        // on récupère tous les utilisateurs
+        $all_users = getAllUsers($id_postit);
 
         
+
         foreach($postits_list as $postit)
         {
             if($postit->id_postit == $id_postit)
@@ -70,16 +76,105 @@
         }
     }
 
+    // //on traite la modification d'accès
+    // if(isset($_POST['write']))
+    // {
+    //     // On récupère l'id du post-it à supprimer
+    //     $id_user = $_POST['write'];
+    //     $val = 1;
+
+    //     // On modifie le flag dans share
+    //     $result = setFlagWrite($id_user, $id_postit , $val);
+    //     if($result == 0)
+    //     {
+    //         $error = "Erreur lors de la suppression du post-it";
+    //         exit;
+    //     }
+    //     else
+    //     {
+    //         //afficher un message de succès à gerer avec JavaScript
+
+    //         // On redirige vers la page d'accueil
+    //         header('Location: index.php?r=one_post_it&id_postit='.$id_postit);
+
+    //         exit;
+    //     }
+    // }
+    // if(isset($_POST['read']))
+    // {
+    //     // On récupère l'id du post-it à supprimer
+    //     $id_user = $_POST['read'];
+    //     $val = 0;
+
+    //     // On modifie le flag dans share
+    //     $result = setFlagWrite($id_user, $id_postit , $val);
+    //     if($result == 0)
+    //     {
+    //         $error = "Erreur lors de la suppression du post-it";
+    //         exit;
+    //     }
+    //     else
+    //     {
+    //         //afficher un message de succès à gerer avec JavaScript
+
+    //         // On redirige vers la page d'accueil
+    //         header('Location: index.php?r=one_post_it&id_postit='.$id_postit);
+
+    //         exit;
+    //     }
+    // }
+
+    // on ajoute un user dans le partage
+    if(isset($_POST['add_user']))
+    {
+        // On récupère l'id du post-it à supprimer
+        $id_user = $_POST['add_user'];
+        $val = 0;
+
+        // On modifie le flag dans share
+        $result = addUserShare($id_user, $id_postit);
+        if($result == 0)
+        {
+            $error = "Erreur lors de la suppression du post-it";
+            exit;
+        }
+        else
+        {
+            //afficher un message de succès à gerer avec JavaScript
+
+            // On redirige vers la page d'accueil
+            header('Location: index.php?r=one_post_it&id_postit='.$id_postit);
+
+            exit;
+        }
+    }
+
+    // on retire un user dans le partage
+    if(isset($_POST['move']))
+    {
+        // On récupère l'id du post-it à supprimer
+        $id_user = $_POST['move'];
+        $val = 0;
+
+        // On modifie le flag dans share
+        $result = moveUserShare($id_user, $id_postit);
+        if($result == 0)
+        {
+            $error = "Erreur lors de la suppression du post-it";
+            exit;
+        }
+        else
+        {
+            //afficher un message de succès à gerer avec JavaScript
+
+            // On redirige vers la page d'accueil
+            header('Location: index.php?r=one_post_it&id_postit='.$id_postit);
+
+            exit;
+        }
+    }
 
 
-
-    // on récupère tous les utilisateurs
-    $users = getAllUsers();
-     if(!empty($users))
-     {
-        //on active une div pour afficher les utilisateurs
-        
-     }
     
     require '../app/views/one_post_it_view.php';
 ?>

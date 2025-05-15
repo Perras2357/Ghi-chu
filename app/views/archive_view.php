@@ -4,7 +4,7 @@
 
 
     <div class="main-content" style="margin-left: 260px;">
-        <div class="container py-4">
+        <div class="container py-4" style="margin-left: 250px; height: 100vh; overflow-y: auto;">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                 
                 <!-- Contenu à dupliquer -->
