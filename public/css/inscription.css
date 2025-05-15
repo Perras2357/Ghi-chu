@@ -1,99 +1,103 @@
-/* Réinitialisation des marges du body */
+```css
+/* --- fichier css/inscription.css --- */
+
+/* RESET BASIQUE */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    height: 100%; /* Assurer que le body prend toute la hauteur de la page */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100%;
 }
 
-/* Conteneur principal */
+/* CONTENEUR PRINCIPAL */
 .form-container {
-    display: flex;
-    justify-content: space-between; /* Disposition côte à côte du formulaire et de l'image */
-    align-items: stretch; /* Assure que les éléments prennent toute la hauteur de la page */
-    height: 100vh; /* Utilise toute la hauteur de la fenêtre */
+  display: flex;
+  height: 100vh;
 }
 
+/* BOÎTE DU FORMULAIRE */
 .form-box {
-    width: 50%; /* Formulaire prend 50% de la largeur */
-    background-color: white;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-sizing: border-box; /* Assure que le padding n'ajoute pas à la largeur totale */
+  width: 50%;
+  padding: 40px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
-
 .logo {
-    width: 90px;
-    height: auto;
-    margin-bottom: 20px;
+  width: 90px;
+  margin-bottom: 20px;
 }
 
+/* CONTENU DU FORM */
 form {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* Permet au formulaire d'occuper l'espace restant */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
-
 form input,
 form button {
-    margin: 10px 0;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
 }
-
 button {
-    background-color: #7c3aed;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
+  background: #7c3aed;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
 }
-
 button:hover {
-    background-color: #6b21a8;
+  background: #6b21a8;
 }
 
-/* Partie Image */
+/* IMAGE À CÔTÉ */
 .image-part {
-    width: 50%; /* Image prend 50% de la largeur */
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center; /* Centre l'image horizontalement */
-    align-items: center; /* Centre l'image verticalement */
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
-
 .inscription-image {
-    width: 100%; /* L'image occupe toute la largeur de son conteneur */
-    height: 100%; /* L'image occupe toute la hauteur de son conteneur */
-    object-fit: cover; /* Garde les proportions tout en couvrant l'espace */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* Style pour les champs invalides */
-input.invalid {
-    border: 2px solid red; /* Bordure rouge pour les champs invalides */
+/* CHAMPS INDIVIDUELS */
+.field-group {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
-input:focus.invalid {
-    outline: none; /* Supprime le contour par défaut du navigateur */
-    border: 2px solid red; /* Maintient la bordure rouge lorsqu'un champ est en focus */
+/* ERREUR SUR UN CHAMP */
+.field-group.error input {
+  background: rgba(255, 0, 0, 0.1); /* fond rouge clair */
+  border: 2px solid #c00;           /* bordure rouge foncé */
 }
-
-/* Style pour le message d'erreur */
+.field-group.error .error-message {
+  display: block;
+  color: #c00;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
 .error-message {
-    color: red;
-    font-size: 12px;
-    display: none; /* Par défaut, le message est caché */
+  display: none;
 }
 
-/* Affichage du message d'erreur */
-input.invalid + .error-message {
-    display: block; /* Affiche le message d'erreur si le champ est invalide */
+/* ERREUR GLOBALE */
+form.error-all input {
+  background: rgba(255, 0, 0, 0.1);
+  border: 2px solid #c00;
 }
-/* Style pour le champ de confirmation de mot de passe */
-input[name="password_confirm"] {
-    margin-bottom: 10px; /* Espacement supplémentaire sous ce champ */
+form.error-all .error-message {
+  display: block;
+  color: #c00;
 }
+```
