@@ -24,6 +24,6 @@
 <body>
       <?php 
             global $base_url;
-            require_once "_nav.php" 
+            //require_once "_nav.php" 
       ?>
     

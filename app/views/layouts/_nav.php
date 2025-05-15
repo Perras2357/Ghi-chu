@@ -4,13 +4,7 @@
 
     <div class="container col-4 col-sm-4 col-md-2  text-primary-emphasis sidebar">    
 
-    <!-- <div class="d-flex flex-column flex-shrink-0 p-3 text-primary-emphasis sidebar" style="width: 280px;"> -->
-
-    <div class="container col-4 col-sm-4 col-md-2  text-primary-emphasis sidebar">    
-
-        
         <!-- div logo -->
-        <div class="logo-section text-center mb-3">
         <div class="logo-section text-center mb-3">
             <a href="index.php?r=home" class="nav-link">
                 <img src="images/ghi_chu_logo.png" alt="Logo" class="logo-img mx-auto">
@@ -19,20 +13,17 @@
 
         <hr>
 
+
         <!-- div menu -->
         <ul class="nav nav-pills mb-auto text-center">
-        <ul class="nav nav-pills mb-auto text-center">
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="bi bi-collection-fill">My Post-Its</i>    
-                </a>
-                    <i class="bi bi-collection-fill">My Post-Its</i>    
+                <a href="index.php?r=archive" class="nav-link">
+                    <i class="bi bi-trash3-fill">Archive</i>    
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="bi bi-share-fill">Post-its shared</i>                    
-                    <i class="bi bi-share-fill">Post-its shared</i>                    
+                    <i class="bi bi-git">Versionning-post-it</i>                    
                 </a>
             </li>
         </ul>
@@ -47,8 +38,7 @@
                 <li><a class="dropdown-item" href="#">Paramètres</a></li>
                 <li><a class="dropdown-item" href="#">Profil</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href= "index.php?r=logout">Déconnexion</a></li>
-                <li><a class="dropdown-item" href= "index.php?r=logout">Déconnexion</a></li>
+                <li><a class="dropdown-item" href="#">Déconnexion</a></li>
             </ul>
         </div>
 

@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__.'/layouts/head.php';
+    require_once __DIR__.'/layouts/_nav.php' ;
 ?>
 
 

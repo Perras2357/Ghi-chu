@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__.'/layouts/head.php';
+    require_once __DIR__.'/layouts/_nav.php' ;
 ?>
 
     <div class="container p-3 " style="margin-left: 250px; height: 100vh; overflow-y: auto;">
@@ -37,7 +38,6 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Titre</th>
                                             <th scope="col">Date-create</th>
-
                                             <th scope="col">Date-Edit</th>
                                             <th scope="col">Action</th> 
                                         </tr>
@@ -49,9 +49,7 @@
                                             <tr>
                                                 <th scope="row"> <?=$i++ ?> </th> <!-- post incrementation -->
                                                 <td>
-
                                                     <a class="text-black text-decoration-none" href="index.php?r=one_post_it&id_postit=<?= $postit->id_postit ?>">
-
                                                         <?= $postit->title ?></td>
                                                     </a>
                                                 <td><?= $postit->date_create_postit ?></td>
@@ -62,7 +60,6 @@
                                                     </a>
                                                 </td>
                                             </tr>
-
                                         <?php endforeach; ?>
 
                                     </tbody>
@@ -76,7 +73,6 @@
 
 
             <!-- Colonne post-it partagés   -->
-
             <?php //if(!empty($postits_shared_home)): ?>
                 <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center mb-5">
                     <div class="card">
@@ -94,7 +90,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
 
                                     <?php if(!empty($postits_shared_home)): ?>
 
