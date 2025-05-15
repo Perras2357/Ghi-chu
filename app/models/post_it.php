@@ -170,7 +170,7 @@
     }
 
     //fonction qui permet d'archiver un post-it
-    function archivePostIt($id_postit) 
+    function archivePostIt($id_postit, $id_user) 
     {
         global $db;
 
@@ -186,7 +186,7 @@
         }
         else // Ajout dans la table historique
         {
-            $id_user = 1;
+
             //On récupère les infos du postit
             // Requête préparée pour récupérer tous les post-its d'un utilisateur
             $sql = "SELECT * FROM postit WHERE id_postit = ? AND flag_delete = 1";

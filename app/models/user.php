@@ -12,7 +12,7 @@
             return ["status" => false, "message" => "no_account"];
         }
 
-        if ($password != $user['password']) {
+        if (!password_verify($password,$user['password'])) {
             return ["status" => false, "message" => "wrong_password"];
         }
         return ["status" => true, "user" => $user];

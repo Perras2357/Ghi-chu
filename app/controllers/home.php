@@ -9,6 +9,8 @@
     // $id_user = $_SESSION['user']['id_user'];
     //$id_user = 1; // Pour le test, on met l'id de l'utilisateur à 1
 
+    
+
     if($_SESSION['user_id'])
     {
         $id_user = $_SESSION['user_id'];
@@ -21,6 +23,8 @@
 
     // On récupère tous les post-it de l'utilisateur
     $postits_home = getAllPostIt($id_user);
+
+    var_dump($id_user);
     if(!empty($postits_home))
     {
         // // on récupère juste les trois premiers post-it
