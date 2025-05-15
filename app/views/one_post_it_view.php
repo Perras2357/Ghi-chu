@@ -21,18 +21,8 @@
                                         aria-expanded="false"
                                         style="cursor: pointer;"></i>
                                         <ul class="dropdown-menu dropdown-menu-end">
-<<<<<<< HEAD
                                             <li><a class="dropdown-item" href="index.php?r=update_post_it&id_postit=<?= $postit->id_postit ?>">Modifier</a></li>
                                             <li><a class="dropdown-item" href="#">Partager</a></li>
-=======
-                                            <li><a class="dropdown-item" href="#">Modifier</a></li>
-                                            <li>
-                                                <button class="btn dropdown-item" type="button" id="collapseForm">
-                                                    <i class="bi bi-share"></i>
-                                                    Partager
-                                                </button>
-                                            </li>
->>>>>>> feature/post-it
                                             <li><a class="dropdown-item" href="#">Supprimer</a></li>
                                             <li><a class="dropdown-item" href="#">New version</a></li>
                                         </ul>
@@ -79,7 +69,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                     <?php $i = 1; ?>  <!--pour le numéro de ligne -->
                                         <?php foreach ($users_shared as $user): ?>
                                             <tr>
