@@ -10,7 +10,7 @@
                 
                 <!-- Contenu à dupliquer -->
                 <?php if(!empty($postit_one)): ?>
-                    <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center">
+                    <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center mb-5">
                         <div class="card shadow-sm mt-3">
                             <form method="POST">
                                 <div class="card-header d-flex justify-content-between align-items-center">
