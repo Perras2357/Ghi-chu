@@ -25,6 +25,7 @@
     $postits_home = getAllPostIt($id_user);
 
     var_dump($id_user);
+    var_dump($postits_home);
     if(!empty($postits_home))
     {
         // // on récupère juste les trois premiers post-it

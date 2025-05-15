@@ -46,7 +46,7 @@
         } 
 
         // Si tout est bon, on peut créer le post-it
-        $new_post_it = createPostIt($title, $content, 1);
+        $new_post_it = createPostIt($title, $content, $id_user);
 
         
 
