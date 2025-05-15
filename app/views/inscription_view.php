@@ -52,13 +52,14 @@
       <!-- Champ date de naissance -->
       <div class="field-group<?= isset($errors['naissance']) ? ' error' : '' ?>" id="group-naissance">
         <input
-          type="text"
+          type="texte"
           name="naissance"
           id="naissance"
-          placeholder="Date of birth (AAAAMMJJ)"
+          placeholder="AAAA/MM/JJ"
           value="<?= htmlspecialchars($_POST['naissance'] ?? '') ?>"
           required
         >
+        <input type="hidden" name="naissance" id="naissance" value="<?= htmlspecialchars($_POST['naissance'] ?? '') ?>">
         <span class="error-message">
           <?= htmlspecialchars($errors['naissance'] ?? '') ?>
         </span>

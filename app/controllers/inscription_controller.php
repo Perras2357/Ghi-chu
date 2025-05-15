@@ -16,14 +16,6 @@ if (isset($_POST['inscription'])) {
     $email            = trim($_POST['email'] ?? '');
     $password         = $_POST['password'] ?? '';
     $password_confirm = $_POST['password_confirm'] ?? '';
-if ($prenom === '') {
-    $errors['prenom'] = "Veuillez entrer un prénom.";
-    echo '<p>– debug : prénom vide détecté</p>';
-}
-if ($nom === '') {
-    $errors['nom'] = "Veuillez entrer un nom.";
-    echo '<p>– debug : nom vide détecté</p>';
-}
 
     // 1. Validation du prénom
     if ($prenom === '') {
@@ -35,14 +27,16 @@ if ($nom === '') {
         $errors['nom'] = "Veuillez entrer un nom.";
     }
 
-    // 3. Validation de la date de naissance (format AAAAMMJJ)
-    if (!preg_match('/^[0-9]{8}$/', $naissance)) {
-        $errors['naissance'] = "La date de naissance doit être au format AAAAMMJJ.";
+    // Validation de la date de naissance (format AAAA/MM/JJ)
+    if (!preg_match('/^[0-9]{4}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/', $naissance)) {
+        $errors['naissance'] = "La date de naissance doit être au format AAAA/MM/JJ.";
     }
 
-    // 4. Validation du format de l'email
+
+    //4. Validation du format de l'email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "Veuillez entrer un email valide.";
+        
     } else {
         // 5. Vérification si l'email existe déjà
         $stmt = $db->prepare("SELECT * FROM user WHERE mail = :email");

@@ -1,5 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('form');
+    
+
+
+    // DATEPICKER → hidden au format AAAA/MM/JJ
+    const picker = document.getElementById('naissance_picker');
+    const hidden = document.getElementById('naissance');
+    picker.addEventListener('change', e => {
+        const [y, m, d] = e.target.value.split('-');  // YYYY-MM-DD
+        hidden.value = (y && m && d) ? `${y}/${m}/${d}` : '';
+    });
+    
+
+    //Récupération du formulaire et de ses inputs
+
+    const form = document.getElementsById('inscritionForm');
     const inputs = form.querySelectorAll('input');
     
     // Fonction de validation
@@ -20,25 +34,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         
 
-        // Validation de l'email (format simple)
-
-        if (input.name === 'email' && !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(input.value)) {
+      // Validation de l'email (pattern de base)
+        if (input.name === 'email') {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(input.value.trim())) {
             isValid = false;
-            errorMessage = 'L\'email n\'est pas valide.';
+            errorMessage = 'Adresse email invalide';
+        }
         }
 
 
-        //Validation de la date de naissance (format AAAAMMJJ)
+
+        // Validation de la date de naissance (format AAAA/MM/JJ)
 
         if (input.name === 'naissance') {
+            
+        // AAAA/MM/JJ : année 0000–9999, mois 01–12, jour 01–31
+        const datePattern = /^[0-9]{4}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/;
+        if (!datePattern.test(input.value.trim())) {
+            isValid = false;
+            errorMessage = 'La date de naissance doit être au format AAAA/MM/JJ.';
+        }
+        }
 
-            const datePattern = /^\d{8}$/; // Format AAAAMMJJ
-            if (!datePattern.test(input.value)) {
-
-                isValid = false;
-
-                errorMessage = 'La date de naissance doit être au format AAAAMMJJ.';
-            }
         }
         // Si le champ est invalide, applique la classe 'invalid' et montre le message d'erreur
         if (!isValid) {
