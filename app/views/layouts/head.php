@@ -12,9 +12,14 @@
             <!-- icones bootstrap -->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> 
 
+            <!-- js en ligne -->
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
             <!-- css local -->
             <link rel="stylesheet" href="css/nav_bar.css">
             <link rel="stylesheet" href="css/home.css">
+
+
       </head>
 <body>
       <?php 

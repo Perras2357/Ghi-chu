@@ -63,6 +63,17 @@
             exit;
         }
     }
+
+
+
+
+    // on récupère tous les utilisateurs
+    $users = getAllUsers();
+     if(!empty($users))
+     {
+        //on active une div pour afficher les utilisateurs
+        
+     }
     
     require '../app/views/one_post_it_view.php';
 ?>
