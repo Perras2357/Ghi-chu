@@ -3,8 +3,6 @@
 
 require '../app/models/post_it.php'; // Inclure le modèle pour la gestion des post-its
 // require '../app/models/user.php'; // Inclure le modèle pour la gestion des utilisateurs
-
-// 🔐 À remplacer par session réelle
 // $id_user = $_SESSION['user']['id_user'];
 $id_user = 1; // Pour les tests
 
@@ -33,14 +31,13 @@ if (!isset($postit_one)) {
     exit();
 }
 
-// 🔄 Traitement de la modification du post-it
+// Traitement de la modification du post-it
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
     $new_content = $_POST['content'] ?? '';
     $new_title = $_POST['title'] ?? '';
     $result = updatePostItContent($postit_one->id_postit,$new_title, $new_content, $id_user);
 
     if ($result['success']) {
-        // ✅ Redirection vers le menu principal après succès
         header('Location: index.php?r=one_post_it&id_postit=' . $postit_one->id_postit);
         exit();
     } else {
@@ -48,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
     }
 }
 
-// 🗑️ Suppression logique du post-it
+//Suppression logique du post-it
 if (isset($_POST['delete'])) {
     $id_postit = $_POST['delete'];
     $result = archivePostIt($id_postit);
