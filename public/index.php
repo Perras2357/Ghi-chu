@@ -13,7 +13,7 @@
     // Redirige vers r=home si aucun paramètre 'r' dans l'URL
     if (!isset($_GET['r'])) 
     {
-        header('Location: index.php?r=login');
+        header('Location: index.php?r=forgot_password');
         exit;
     }
 

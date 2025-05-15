@@ -34,13 +34,13 @@
 
 
           <div class="forgot">
-            <a href="index.php?r=forgot_password.php">Forgot Password</a>
+            <a href="index.php?r=forgot_password">Forgot Password</a>
           </div>
 
           <button type="submit" name='submit_button' class="signin-btn">Sign in</button>
 
           <div class="signup">
-            Don't have an account ? <a href="index.php?r=inscription.php">Sign up</a>
+            Don't have an account ? <a href="index.php?r=inscription">Sign up</a>
           </div>
         </form>
       </div>
