@@ -21,7 +21,7 @@
                                     <label for="content" class="form-label">Contenu</label>
                                     <textarea id="content" name="content" rows="6" class="form-control" required><?= htmlspecialchars($postit_one->content) ?></textarea>
                                 </div>
-                                <button type="submit" name="create" class="btn btn-success">Créer la nouvelle version</button>
+                                <button type="submit" name="create_version" class="btn btn-success">Créer la nouvelle version</button>
                             </form>
 
                             <?php if (isset($error)): ?>

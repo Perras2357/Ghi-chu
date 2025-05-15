@@ -289,6 +289,50 @@
     }
 
 
+    function newPostItVersion($id_postit, $new_content, $new_title, $id_user)
+{
+    global $db;
+
+
+
+    // Vérification : nombre minimal/maximal de caractères
+    $minLength = 1;
+    $maxLength = 500;
+
+    if (strlen($new_content) < $minLength || strlen($new_content) > $maxLength) {
+        return ['success' => false, 'error' => "Le contenu doit contenir entre $minLength et $maxLength caractères."];
+    }
+
+    // Récupère le post-it existant
+    $sql = "SELECT content,title,id_postit,date_create_postit FROM postit WHERE id_postit = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$id_postit]);
+    $postit = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+    if (!$postit) {
+        return ['success' => false, 'error' => "Post-it introuvable ou non autorisé."];
+    }
+    
+    $sql = "INSERT INTO historic (id_postit,title, content) VALUES (?,?,?)";
+    $stmt = $db->prepare($sql);
+    $success = $stmt->execute([$postit['id_postit'], $postit['title'], $postit['content']]);
+    // Vérifier si l'insertion a réussi
+    if ($stmt->rowCount() == 0) {
+        // Gérer l'erreur d'insertion
+        return 0;
+    }
+
+    // Mise à jour du contenu
+    $sql = "UPDATE postit SET content = ?,title = ? ,date_modification = NOW() WHERE id_postit = ?";
+    $stmt = $db->prepare($sql);
+    $success = $stmt->execute([$new_content,$new_title,$id_postit]);
+
+
+    return ['success' => $success];
+}
+
+
 
 
 
