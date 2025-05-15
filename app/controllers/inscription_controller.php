@@ -3,19 +3,16 @@
 $errors = [];
 $message = '';
 
-//var_dump($_POST);
-
-if ((isset($_POST['inscription']))) {
+// Vérification si le formulaire est soumis
+if (isset($_POST['inscription'])) {
     // Récupérer les données du formulaire
-
-    var_dump($_POST['password']);
-
     $prenom = $_POST['prenom'];
     $nom = $_POST['nom']; 
     $naissance = $_POST['naissance'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $password_confirm = $_POST['password_confirm'];
+
 
 //pour debug
 //echo '<pre>POST = '; var_dump($_POST); echo '</pre>';
@@ -27,6 +24,7 @@ if ((isset($_POST['inscription']))) {
     $email            = trim($_POST['email'] ?? '');
     $password         = $_POST['password'] ?? '';
     $password_confirm = $_POST['password_confirm'] ?? '';
+
 
     // 1. Validation du prénom
     if ($prenom === '') {
@@ -64,13 +62,12 @@ if ((isset($_POST['inscription']))) {
     }
 
     // 7. Vérification de la correspondance des mots de passe
+
     if ($password !== $password_confirm) {
         $errors['password_confirm'] = "Les deux mots de passe ne correspondent pas.";
     }
 
     // Si aucune erreur, procéder à l'inscription
-    
-    if (empty($errors)) {
 
         // Hachage du mot de passe
 
@@ -87,17 +84,17 @@ if ((isset($_POST['inscription']))) {
         $stmt->bindParam(':email',            $email,            PDO::PARAM_STR);
         $stmt->bindParam(':password',         $hashed_password,  PDO::PARAM_STR);
 
-
+        // Si l'insertion est réussie
         if ($stmt->execute()) {
-
-            $message = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
-            header("Location: index/?r=home"); // Rediriger vers la page de connexion
+            $message = "Inscription réussie ! Vous allez être redirigé vers la page de connexion.";
+            echo("<script>console.log('PHP: " . $stmt . "');</script>");
+            //header("Location: index/?r=login");  // Rediriger vers la page de connexion
+            exit();
         } else {
             $message = "Erreur lors de l'inscription. Veuillez réessayer.";
-            //header("Location: index/?r=login.php"); // Rediriger vers la page de connexion
         }
     }
-}
+
 
 require_once '../app/views/inscription_view.php'; // Charger la vue
 ?>

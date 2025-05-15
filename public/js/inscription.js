@@ -29,6 +29,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validation du mot de passe (doit contenir au moins 6 caractères)
         if (input.name === 'password_confirm' && input.value.length < 6) {
+<<<<<<< HEAD
+=======
+            isValid = false;
+            errorMessage = 'Les 2 mots de passe ne correspondent pas';
+        }
+
+        // Validation de l'email (format simple)
+        if (input.name === 'email' && !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(input.value)) {
+>>>>>>> 4f93769 (envoie des infos du formulaire à la bd)
             isValid = false;
             errorMessage = 'Les 2 mots de passe ne correspondent pas';
         }
