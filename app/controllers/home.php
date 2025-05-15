@@ -25,9 +25,6 @@
             $postits_shared_home = array_slice($postits_shared_home, 0, 2);
         }
     }
-
-    // On récupère les post-it archivés
-    $postits_archived_home = getPostItArchived($id_user);
     
 
 

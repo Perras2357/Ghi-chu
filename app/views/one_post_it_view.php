@@ -8,7 +8,7 @@
             <div class="row row-cols-8 row-cols-sm-8 row-cols-md-8 g-2 mt-4">
                 
                 <!-- Contenu à dupliquer -->
-                 <?php if(!empty($postit_one)): ?>
+                <?php if(!empty($postit_one)): ?>
                     <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center">
                         <div class="card shadow-sm mt-3">
                             <form method="POST">
@@ -52,9 +52,59 @@
                     </div>
                 <?php endif; ?>
                 <!-- Duplique d'autres <div class="col">...</div> pour tes autres post-its -->
+                
+                <!-- tableau des utilisateurs -->
+                    <div class="col-8 col-sm-8 col-md-8 col-lg-8 offset-4 offset-sm-3 offset-md-3 offset-lg-3 text-center mb-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-text libelle">
+                                    <p> My Post-Its</p>
+                                </div>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nom</th>
+                                            <th scope="col">mail</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
+                                    <?php $i = 1; ?>  <!--pour le numéro de ligne -->
+                                        <?php foreach ($users_shared as $user): ?>
+                                            <tr>
+                                                <th scope="row"> <?=$i++ ?> </th> <!-- post incrementation -->
+                                                <td>
+                                                        <?= $user->first_name ?></td>
+                                                    </a>
+                                                <td><?= $user->mail ?></td>
+                                                <td><?= $postit->date_modification ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>>
+
+                        
+               
+                
+
+
+
+
+
+
+                    </div>
+                </div>
             </div>
         </div>
+
+                           
+
+
     </div>
 
 
