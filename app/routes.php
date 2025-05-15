@@ -13,6 +13,6 @@
     if (file_exists($controllerFile)) {
         require $controllerFile;
     } else {
-        http_response_code(404);
-        echo "<h1>404 - Page non trouvée</h1>";
+        //http_response_code(404);
+        //echo "<h1>404 - Page non trouvée</h1>";
     }
