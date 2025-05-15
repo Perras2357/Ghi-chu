@@ -69,6 +69,8 @@
 - Comprendre le système d’envoi d’emails
 - Gérer les liens sécurisés pour la modification
 
+Bay gio hay giai thich cach van hanh cua fonctionnalité nay truoc da roi sau do hay bat dau lam cho toi. Trong hinh la cau truc du an cua toi, trong model se co mot ham de 
+
 ### Changement du mot de passe (F2 **)
 
 #### Interface utilisateur :
