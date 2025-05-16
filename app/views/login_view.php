@@ -1,10 +1,10 @@
 
-<?php require_once __DIR__.'/layouts/head.php'; ?>
-<link rel="stylesheet" href="../public/css/login.css">
+<?php //require_once __DIR__.'/layouts/head.php'; ?>
+<link rel="stylesheet" href="css/login.css">
 
   <div class="container">
     <div class="left">
-      <img src="../public/images/logo_fond_blanc.png" alt="Logo Ghi Chú" class="logo">
+      <img src="images/logo_fond_blanc.png" alt="Logo Ghi Chú" class="logo">
 
       <div class="form-wrapper">
         <h1>Welcome</h1>
@@ -56,5 +56,4 @@
   </div>
 
   <script src="js/login.js"></script>
-  <?php require_once __DIR__.'/layouts/footer.php'; ?>
-
+  <?php //require_once __DIR__.'/layouts/footer.php'; ?>
