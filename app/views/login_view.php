@@ -48,13 +48,13 @@
 
     <!-- <div class="right"></div> -->
     <div class="right" style="
-      background-image: url('../public/images/postit.jpg');
+      background-image: url('images/postit.jpg');
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;">
     </div>
   </div>
 
-  <script src="../public/js/login.js"></script>
+  <script src="js/login.js"></script>
   <?php require_once __DIR__.'/layouts/footer.php'; ?>
 

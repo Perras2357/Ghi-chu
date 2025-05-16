@@ -33,7 +33,7 @@
         //$shared_id_user = array_column($users_shared, 'id_user');
 
         // on récupère tous les utilisateurs
-        $all_users = getAllUsers($id_postit);
+        $all_users = getAllUsers($id_postit,$id_user);
 
         
 

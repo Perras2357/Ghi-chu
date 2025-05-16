@@ -266,18 +266,18 @@
     }
 
     // Fonction pour récupérer les utilisateurs
-    function getAllUsers($id_postit) 
+    function getAllUsers($id_postit,$id_user) 
     {
         global $db;
 
         // Requête préparée pour récupérer tous les utilisateurs
         $sql = "SELECT first_name, mail, id_user 
             FROM user 
-            WHERE id_user NOT IN (
+            WHERE id_user <> ? AND id_user NOT IN (
                 SELECT id_user FROM share WHERE id_postit = ?
             )";
         $stmt = $db->prepare($sql);
-        $stmt->execute([$id_postit]);
+        $stmt->execute([$id_user, $id_postit]);
 
         // Vérifier si la requête a réussi
         if ($stmt->rowCount() == 0) {
